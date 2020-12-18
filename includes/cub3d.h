@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/16 17:31:46 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/18 18:34:22 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,24 @@ typedef struct	s_mlx_info
 {
 	void		*mlx_ptr;
 	void		*mlx_win;
+	void		*img;
 	int			width;
 	int			height;
+	int			*texture[4];
+	int			t_w;
+	int			t_h;
+	int			*map[256];
 }				t_mlx_info;
 
-typedef struct	s_raycasting
+typedef struct	s_movements
+{
+	int			key_d;
+	int			key_a;
+	int			key_s;
+	int			key_w;
+}				t_movements;
+
+typedef struct	s_all
 {
 	double		posX;
 	double		posY;
@@ -37,8 +50,6 @@ typedef struct	s_raycasting
 	double		dirY;
 	double		planeX;
 	double		planeY;
-	double		time; 
-	double		oldTime; 
 	double		cameraX;
 	double		rayDirX;
 	double		rayDirY;
@@ -56,16 +67,29 @@ typedef struct	s_raycasting
 	int			hit;
 	int			side;
 	int			lineHeight;
+	t_movements	*mov;
 	t_mlx_info	*infos;
-}				t_raycasting;
+}				t_all;
+
+
+int		ft_affiche_mes_couilles(t_all *ray, t_mlx_info *info);
 
 int		ft_fill_resolution(char *line, t_mlx_info *info);
-int		ft_affiche_mes_couilles(t_raycasting *ray, t_mlx_info *info, void *mlx, void *window);
+int		ft_check_map(char *map_name, t_mlx_info *info);
+int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths);
+
 
 void	ft_init_flags(t_mlx_info *info);
-void	ft_init_flags_raycasting(t_raycasting *ray, t_mlx_info *info);
+void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov);
+void	ft_init_flags_movements(t_movements *mov);
+int		ft_get_orientation(char *line);
+int		ft_print_errors(int error);
+int		ft_parcours_map(t_mlx_info *info, int fd);
 
-int ft_move_forward(int keycode, t_raycasting *ray);
+int		ft_move_forward(t_all *ray);
+
+int		key_release(int keycode, t_all *ray);
+int		key_press(int keycode, t_all *ray);
 
 
 #endif
