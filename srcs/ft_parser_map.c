@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/18 18:48:39 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 09:59:01 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,34 @@
 #include "../includes/libft.h"
 #include "../includes/mlx.h"
 
-int		ft_parcours_map(t_mlx_info *info, int fd)
+int		ft_parcours_map(t_mlx_info *info, char *line)
 {
 	int		i;
-	char	*line = NULL;
-	int		rows;
-	int		spaces;
-	int		num;
-	info->map[0][0] = 0;
-	num = 0;
-	rows = 0;
-	spaces = 0;
+
+	static int		rows = 0;
+
 	i = -1;
-	while (get_next_line(fd, &line) == 1)
+	if (line[0] != '\0')
+		rows++;
+	int	tmp;
+	int	j = 0;
+	if (rows == 0)
+		info->map = malloc(sizeof(int *) * 9);
+
+	info->map[rows] = malloc(sizeof(int) * 25);
+	while (line[++i] != '\0')
 	{
-		dprintf(1, "%s ", line);
-		i = 2;
+		tmp = j;
+		if (line[i] == '\t')
+			while (j < tmp + 4)
+				info->map[rows][j++] = -1;
+		else if (ft_isdigit(line[i]))
+			info->map[rows][j++] = line[i] - '0';
+		else
+		{
+				info->map[rows][j++] = line[i];
+		}
+		
 		// while (line[i])
 		// {
 		// 	// if (line[i] == '0' || line[i] == '1')
@@ -47,13 +59,16 @@ int		ft_parcours_map(t_mlx_info *info, int fd)
 		// 		dprintf(1, "[%c] ", line[i]);
 		// }
 		//free(line);
-		rows++;
+		
 	}
-	// i = -1;
-	// while (++i < 30)
+	// int	im = -1;
+	// if (line[0] != '\0')
 	// {
-	// 	dprintf(1, "[%d] ", info->map[0][i]);
+	// 	while (++im < 10)
+	// 	{
+	// 		//dprintf(1, "[%d] ", info->map[rows][im]);
+	// 	}
+	// 	//	printf("\n");
 	// }
-	printf("\n");
 	return (1);
 }

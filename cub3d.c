@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/18 17:32:03 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 09:53:07 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@
 
 int ft_move_forward(t_all *ray)
 {
-	int worldMap[8][8]=
-	{
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 2, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1}
-	};
+	// int worldMap[8][8]=
+	// {
+	// 	{1, 1, 1, 1, 1, 1, 1, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 2, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 1, 1, 1, 1, 1, 1, 1}
+	// };
 	if (ray->mov->key_w)
 	{
-		if (worldMap[(int)(ray->posX + ray->dirX * 0.13)][(int)ray->posY] == 0)
+		if (ray->infos->map[(int)(ray->posX + ray->dirX * 0.13)][(int)ray->posY] == 0)
 			ray->posX += ray->dirX * 0.13;
-		if (worldMap[(int)ray->posX][(int)(ray->posY + ray->dirY * 0.13)] == 0)	
+		if (ray->infos->map[(int)ray->posX][(int)(ray->posY + ray->dirY * 0.13)] == 0)	
 			ray->posY += ray->dirY * 0.13;
 	}
 	if (ray->mov->key_a)
@@ -49,9 +49,9 @@ int ft_move_forward(t_all *ray)
 	}
 	if (ray->mov->key_s)
 	{
-		if (worldMap[(int)(ray->posX - ray->dirX * 0.13)][(int)ray->posY] == 0)
+		if (ray->infos->map[(int)(ray->posX - ray->dirX * 0.13)][(int)ray->posY] == 0)
 			ray->posX -= ray->dirX * 0.13;
-		if (worldMap[(int)ray->posX][(int)(ray->posY - ray->dirY * 0.13)] == 0)	
+		if (ray->infos->map[(int)ray->posX][(int)(ray->posY - ray->dirY * 0.13)] == 0)	
 			ray->posY -= ray->dirY * 0.13;
 	}
 	if (ray->mov->key_d)
@@ -76,17 +76,17 @@ int		loop_game(t_all *ray)
 int		ft_affiche_mes_couilles(t_all *ray, t_mlx_info *info)
 {
 
-	int worldMap[8][8] =
-	{
-		{1, 1, 1, 2, 4, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 2, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1}
-	};
+	// int worldMap[8][8] =
+	// {
+	// 	{1, 1, 1, 2, 4, 1, 1, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 2, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 0, 0, 0, 0, 0, 0, 1},
+	// 	{1, 1, 1, 1, 1, 1, 1, 1}
+	// };
 	int		x;
 	x = -1;
 	int	width;
@@ -156,13 +156,14 @@ int		ft_affiche_mes_couilles(t_all *ray, t_mlx_info *info)
 				ray->sideDistY += ray->deltaDistY;
 				ray->mapY += ray->stepY;
 				ray->side = 1;
-					orientation = ray->rayDirY > 0 ? 2 : 3;
+				orientation = ray->rayDirY > 0 ? 2 : 3;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[ray->mapX][ray->mapY] > 0) 
+			//dprintf(1, "Debug mapX = %d et mapY = %d\n", ray->mapX, ray->mapY);
+			if (info->map[ray->mapX][ray->mapY] > 0) 
 				ray->hit = 1;
 		}
-
+		//dprintf(1, "Position du player en X %f et en Y %f\n", ray->posX, ray->posY);
 		double wallX = 0; 
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
 		if (ray->side == 0)

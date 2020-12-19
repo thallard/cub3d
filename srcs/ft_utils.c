@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/18 15:39:06 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 09:39:11 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_init_flags(t_mlx_info *info)
 
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
 {
-	ray->posX = 2;
+	ray->posX = 5;
 	ray->posY = 2;
 	ray->dirX = 1;
 	ray->dirY = 0;

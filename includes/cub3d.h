@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/18 18:34:22 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 09:35:24 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_mlx_info
 	int			*texture[4];
 	int			t_w;
 	int			t_h;
-	int			*map[256];
+	int			**map;
 }				t_mlx_info;
 
 typedef struct	s_movements
@@ -84,7 +84,7 @@ void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov);
 void	ft_init_flags_movements(t_movements *mov);
 int		ft_get_orientation(char *line);
 int		ft_print_errors(int error);
-int		ft_parcours_map(t_mlx_info *info, int fd);
+int		ft_parcours_map(t_mlx_info *info, char *line);
 
 int		ft_move_forward(t_all *ray);
 
