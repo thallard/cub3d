@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/19 09:35:24 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 15:25:07 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int		ft_affiche_mes_couilles(t_all *ray, t_mlx_info *info);
 int		ft_fill_resolution(char *line, t_mlx_info *info);
 int		ft_check_map(char *map_name, t_mlx_info *info);
 int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths);
+int		ft_check_walls_map(t_mlx_info *i, int rows, char **str);
+int		ft_check_map_zero(t_mlx_info *i, char **str, int k, int j);
 
 
 void	ft_init_flags(t_mlx_info *info);
@@ -84,7 +86,13 @@ void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov);
 void	ft_init_flags_movements(t_movements *mov);
 int		ft_get_orientation(char *line);
 int		ft_print_errors(int error);
+
+/*
+**	Map part (Resolution, textures, colors and map)
+*/
+int		ft_fill_map(t_mlx_info *i, char **str, int rows);
 int		ft_parcours_map(t_mlx_info *info, char *line);
+int		ft_malloc_map(t_mlx_info *info, char **str);
 
 int		ft_move_forward(t_all *ray);
 

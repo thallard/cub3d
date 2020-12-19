@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/19 09:53:07 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 12:55:07 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int		ft_affiche_mes_couilles(t_all *ray, t_mlx_info *info)
 		ray->deltaDistX = (ray->rayDirY == 0) ? 0 : (ray->rayDirX == 0) ? 1 : fabs(1 / ray->rayDirX);
 		ray->deltaDistY = (ray->rayDirX == 0) ? 0 : (ray->rayDirY == 0) ? 1 : fabs(1 / ray->rayDirY);
 		//calculate step and initial sideDist
-		int		orientation;
+		int		orientation = 1;
 		if (ray->rayDirX < 0)
 		{
 			ray->stepX = -1;
@@ -216,8 +216,7 @@ int		ft_affiche_mes_couilles(t_all *ray, t_mlx_info *info)
 			int textureY = (int)texPos & (texHeight - 1);
 			texPos += step;
 			long color = info->texture[orientation][texHeight * textureY + texX];
-			char_image[ray->drawStart * info->width + x] = color;
-		ray->drawStart = ray->drawStart + 1;
+			char_image[ray->drawStart++ * info->width + x] = color;
 	}
 	// while (ray->drawEnd < info->height)
 	// 	char_image[ray->drawEnd++ * info->width + x] = 144 + 16 * 16 * 238 + 16 * 16 * 16 * 144;

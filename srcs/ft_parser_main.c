@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/19 09:57:02 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 16:09:52 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,20 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 {
 	int		fd;
 	char	*line;
-	int		i;
+	char	*map[256];
 	int		paths;
-	int map;
+	int		m;
 
 	if ((fd = open(map_name, O_RDONLY)) < 0)
 		return (0);
 	paths = 0;
-	i = 0;
-	map = 0;
+
+	m = 0;
 	line = NULL;
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (map)
-		{
-			ft_parcours_map(info, line);
-		}
-			
 		if ((paths = ft_get_orientation(line)) == 3)
-			map = 1;
+			m = 1;
 		if (line[0] == 'R' && line[0] != '\0')
 		{
 			if (!ft_fill_resolution(line, info))
@@ -44,10 +39,15 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 		}
 		else if (ft_isalpha(line[0]))
 			ft_fill_path_texture(ft_strdup(line), info, paths);
-	//	dprintf(1, "oui\n");
+		else if (m >= 1 && line[0] != '\0')
+			map[m++ - 1] = ft_strdup(line);
 		free(line);
 	}
-	ft_parcours_map(info, line);
+	map[m++ - 1] = ft_strdup(line);
+	map[m - 1] = 0;
+	if (!(ft_malloc_map(info, map)))
+		return (0);
+	// ft_parcours_map(info, line);
 	if (line)
 		free(line);
 	return (1);
@@ -67,7 +67,7 @@ int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths)
 	while (line[i])
 		str[++tmp] = line[i++];
 	str[++tmp] = '\0';
-	//dprintf(1, "%s\n", str);
+	dprintf(1, "%s\n", str);
 	xpm_image = mlx_xpm_file_to_image(info->mlx_ptr, str, &info->t_w, &info->t_h);
 	info->texture[nb_paths] = (int *)mlx_get_data_addr(xpm_image, &i, &i, &i);
 	free(line);
