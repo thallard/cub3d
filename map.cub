@@ -1,4 +1,4 @@
-R 1000 600
+R 1920 600
 NO ./images/mur_N.xpm
 SO ./images/mur_S.xpm
 WE ./images/mur_W.xpm

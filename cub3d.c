@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 14:45:24 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 16:02:28 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,11 @@
 #include "includes/libft.h"
 #include "includes/cub3d.h"
 
-#define texWidth 256
-#define texHeight 256
-
-int ft_move_forward(t_all *ray)
-{
-	if (ray->mov->key_w)
-	{
-		if (ray->infos->map[(int)(ray->player_x + ray->dir_x * 0.13)][(int)ray->player_y] == 0)
-			ray->player_x += ray->dir_x * 0.13;
-		if (ray->infos->map[(int)ray->player_x][(int)(ray->player_y + ray->dir_y * 0.13)] == 0)	
-			ray->player_y += ray->dir_y * 0.13;
-	}
-	if (ray->mov->key_a)
-	{
-		double olddir_x = ray->dir_x;
-		ray->dir_x = ray->dir_x * cos(-3.14 / 60) - ray->dir_y * sin(-3.14 / 60);
-		ray->dir_y = olddir_x * sin(-3.14 / 60) + ray->dir_y * cos(-3.14 / 60);
-		double oldplane_x = ray->plane_x;
-		ray->plane_x = ray->plane_x * cos(-3.14 / 60) - ray->plane_y * sin(-3.14 / 60);
-		ray->plane_y = oldplane_x * sin(-3.14 / 60) + ray->plane_y * cos(-3.14 / 60);
-	
-	}
-	if (ray->mov->key_s)
-	{
-		if (ray->infos->map[(int)(ray->player_x - ray->dir_x * 0.13)][(int)ray->player_y] == 0)
-			ray->player_x -= ray->dir_x * 0.13;
-		if (ray->infos->map[(int)ray->player_x][(int)(ray->player_y - ray->dir_y * 0.13)] == 0)	
-			ray->player_y -= ray->dir_y * 0.13;
-	}
-	if (ray->mov->key_d)
-	{
-		double olddir_x = ray->dir_x;
-		ray->dir_x = ray->dir_x * cos(3.14 / 60) - ray->dir_y * sin(3.14 / 60);
-		ray->dir_y = olddir_x * sin(3.14 / 60) + ray->dir_y * cos(3.14 / 60);
-		double oldplane_x = ray->plane_x;
-		ray->plane_x = ray->plane_x * cos(3.14 / 60) - ray->plane_y * sin(3.14 / 60);
-		ray->plane_y = oldplane_x * sin(3.14 / 60) + ray->plane_y * cos(3.14 / 60);
-	}
-	return (1);
-}
-
 int		loop_game(t_all *ray)
 {
 	ft_move_forward(ray);
+	ft_rotate_player(ray);
+	ft_move_right_and_left(ray);
 	ft_print_raycasting(ray, ray->infos);
 	return (1);
 }
@@ -74,7 +35,7 @@ int		ft_print_raycasting(t_all *ray, t_mlx_info *info)
 	while (++x < info->w)
 	{
 		if (!(ft_init_raycasting_var(ray, x, info)))
-			return (-5);
+			return (0);
 		ft_calculate_step_sidedest(ray);
 		ft_check_ray_hit_wall(ray, info);
 		wall_x = ft_last_calcul_before_render(ray, info);
@@ -94,7 +55,7 @@ int		main(int argc, char **argv)
 	ft_init_flags(&i);
 	i.mlx_ptr = mlx_init();
 	if (argc != 2 || !ft_check_map(argv[1], &i))
-		return (ft_print_errors(-1));
+		return (ft_print_errors(0, &i));
 	ft_init_flags_raycasting(&ray, &i, &mov);
 	ft_print_raycasting(&ray, &i);
 	mlx_hook(i.mlx_win, 02, 1L<<0, key_press, &ray);

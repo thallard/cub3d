@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 14:46:22 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 16:00:10 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <fcntl.h>
 # include <math.h>
 
+# define SPEED 0.10
+# define ROTATE 0.04
+
 typedef struct	s_mlx_info
 {
 	void		*mlx_ptr;
@@ -33,6 +36,7 @@ typedef struct	s_mlx_info
 	int			t_w;
 	int			t_h;
 	int			**map;
+	int			error;
 }				t_mlx_info;
 
 typedef struct	s_movements
@@ -41,6 +45,8 @@ typedef struct	s_movements
 	int			key_a;
 	int			key_s;
 	int			key_w;
+	int			key_al;
+	int			key_ar;
 }				t_movements;
 
 typedef struct	s_all
@@ -87,7 +93,7 @@ void	ft_init_flags(t_mlx_info *info);
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov);
 void	ft_init_flags_movements(t_movements *mov);
 int		ft_get_orientation(char *line);
-int		ft_print_errors(int error);
+int		ft_print_errors(int error, t_mlx_info *i);
 
 /*
 * Rendering part (raycasting)
@@ -100,16 +106,22 @@ double		ft_last_calcul_before_render(t_all *ray, t_mlx_info *info);
 void	ft_print_textures(t_all *ray, t_mlx_info *i, int x, double wall_x);
 
 /*
+* Movements part (player)
+*/
+void	ft_move_forward(t_all *r);
+void	ft_rotate_player(t_all *r);
+int		key_release(int keycode, t_all *ray);
+int		key_press(int keycode, t_all *ray);
+void	ft_move_right_and_left(t_all *r);
+
+/*
 **	Map part (Resolution, textures, colors and map)
 */
 int		ft_fill_map(t_mlx_info *i, char **str, int rows);
 int		ft_parcours_map(t_mlx_info *info, char *line);
 int		ft_malloc_map(t_mlx_info *info, char **str);
 
-int		ft_move_forward(t_all *ray);
 
-int		key_release(int keycode, t_all *ray);
-int		key_press(int keycode, t_all *ray);
 
 
 #endif

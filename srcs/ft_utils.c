@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 14:33:09 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 17:12:48 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_init_flags(t_mlx_info *info)
 	info->img = NULL;
 	info->w = 0;
 	info->h = 0;
+	info->error = 0;
 }
 
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
@@ -29,7 +30,7 @@ void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
 	ray->dir_x = 1;
 	ray->dir_y = 0;
 	ray->plane_x = 0;
-	ray->plane_y = 0.66;
+	ray->plane_y = 0.50;
 	ray->cam = 0;
 	ray->map_x = 0;
 	ray->map_y = 0;
@@ -54,11 +55,19 @@ void	ft_init_flags_movements(t_movements *mov)
 	mov->key_w = 0;
 	mov->key_s = 0;
 	mov->key_d = 0;
+	mov->key_ar = 0;
+	mov->key_al = 0;
 }
 
-int		ft_print_errors(int error)
+int		ft_print_errors(int error, t_mlx_info *i)
 {
 	if (error == -1)
 		return (ft_printf("Error %d : Map error.\n", error));
+	if (i->error == -5)
+		return (ft_printf("Error %d : Wrong resolution in config file.\n", i->error));
+	if (i->error == -6)
+		return (ft_printf("Error %d : Wrong path for a texture.\n", i->error));
+	if (i->error == -7)
+		return (ft_printf("Error %d : Invalid format map.\n", i->error));
 	return (0);
 }

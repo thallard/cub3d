@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 14:47:47 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 16:18:47 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 				return (0);
 		}
 		else if (ft_isalpha(line[0]))
-			ft_fill_path_texture(ft_strdup(line), info, paths);
+		{
+			if (!ft_fill_path_texture(ft_strdup(line), info, paths))
+				return (0);
+		}
 		else if (m >= 1 && line[0] != '\0')
 			map[m++ - 1] = ft_strdup(line);
 		free(line);
@@ -68,6 +71,11 @@ int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 	str[++tmp] = '\0';
 	dprintf(1, "%s\n", str);
 	i->img = mlx_new_image(i->mlx_ptr, i->w, i->h);
+	if (!i->img)
+	{
+		i->error = -6;
+		return (0);
+	}
 	i->int_img = (int *)mlx_get_data_addr(i->img, &j, &j, &j);
 	xpm_image = mlx_xpm_file_to_image(i->mlx_ptr, str, &i->t_w, &i->t_h);
 	i->text[nb_paths] = (int *)mlx_get_data_addr(xpm_image, &j, &j, &j);
@@ -82,17 +90,26 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 
 	space = 0;
 	i = 1;
-	while (line[++i])
+	if (info->h >= 1 || info->w >= 1)
+	{
+		info->error = -5;
+		return (0);
+	}
+	while (line[++i] == ' ')
+		;
+	while (line[i])
 	{
 		if (ft_isdigit(line[i]) && !space)
 			info->w = info->w * 10 + line[i] - '0';
-		if (line[i] == ' ' || line[i] == '\t')
+		if (line[i] == ' ')
 			space = 1;
 		if (space && ft_isdigit(line[i]))
 			info->h = info->h * 10 + line[i] - '0';
+		i++;
 	}
 	if (info->h <= 0 || info->w <= 0)
 		return (0);
+	dprintf(1, "debug : %d %d\n", info->w, info->h);
 	info->mlx_win = mlx_new_window(info->mlx_ptr, info->w, info->h, "Cub3D");
 	return (1);
 }

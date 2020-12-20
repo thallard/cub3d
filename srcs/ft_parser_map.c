@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/19 16:11:25 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 16:16:50 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int		ft_malloc_map(t_mlx_info *i, char **str)
 			return (0);
 	}
 	if (!(ft_fill_map(i, str, l)))
+	{
+		i->error = -7;
 		return (0);
+	}
 	return (1);
 }
 
