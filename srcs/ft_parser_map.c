@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 16:16:50 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 19:31:35 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_malloc_map(t_mlx_info *i, char **str)
 	l = -1;
 	while (str[++l])
 	{
-		j = 0;
+		j = -1;
 		size = 1;
 		while (str[l][++j])
 			size++;

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 16:00:10 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 19:24:11 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct	s_mlx_info
 	int			t_h;
 	int			**map;
 	int			error;
+	int			f_color[3];
+	int			c_color[3];
 }				t_mlx_info;
 
 typedef struct	s_movements
@@ -79,16 +81,6 @@ typedef struct	s_all
 	t_mlx_info	*infos;
 }				t_all;
 
-
-
-
-int		ft_fill_resolution(char *line, t_mlx_info *info);
-int		ft_check_map(char *map_name, t_mlx_info *info);
-int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths);
-int		ft_check_walls_map(t_mlx_info *i, int rows, char **str);
-int		ft_check_map_zero(t_mlx_info *i, char **str, int k, int j);
-
-
 void	ft_init_flags(t_mlx_info *info);
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov);
 void	ft_init_flags_movements(t_movements *mov);
@@ -102,7 +94,7 @@ int		ft_print_raycasting(t_all *ray, t_mlx_info *info);
 int		ft_init_raycasting_var(t_all *ray, int x, t_mlx_info *info);
 void	ft_calculate_step_sidedest(t_all *ray);
 void	ft_check_ray_hit_wall(t_all *ray, t_mlx_info *info);
-double		ft_last_calcul_before_render(t_all *ray, t_mlx_info *info);
+double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info);
 void	ft_print_textures(t_all *ray, t_mlx_info *i, int x, double wall_x);
 
 /*
@@ -120,8 +112,13 @@ void	ft_move_right_and_left(t_all *r);
 int		ft_fill_map(t_mlx_info *i, char **str, int rows);
 int		ft_parcours_map(t_mlx_info *info, char *line);
 int		ft_malloc_map(t_mlx_info *info, char **str);
-
-
+int		ft_map_contains(char *line, t_mlx_info *info);
+int		ft_fill_color(char *line, t_mlx_info *info);
+int		ft_fill_resolution(char *line, t_mlx_info *info);
+int		ft_check_map(char *map_name, t_mlx_info *info);
+int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths);
+int		ft_check_walls_map(t_mlx_info *i, int rows, char **str);
+int		ft_check_map_zero(t_mlx_info *i, char **str, int k, int j);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 15:24:41 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 17:27:30 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 17:54:20 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info)
 		ray->d_s = 0;
 	if (ray->d_e >= info->h)
 		ray->d_e = info->h - 1;
-	dprintf(1, "Wall x = %f et drawend = %d\n", wall_x, ray->d_e);
 	return (wall_x);
 }
 
@@ -128,10 +127,7 @@ void	ft_print_textures(t_all *r, t_mlx_info *i, int x, double wall_x)
 		if ((int)text_pos > i->t_h - 1)
 			t_y = i->t_h - 1;
 		else
-		{
 			t_y = text_pos;
-		}
-		
 		text_pos += step;
 		i->int_img[r->d_s++ * i->w + x] = i->text[r->pdv][i->t_h * t_y + t_x];
 	}

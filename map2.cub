@@ -1,12 +1,19 @@
-R 1920 500
+R      1920     1080
 
-NO   ./textures/NO_wood.xpm
-SO    ./textures/SO_stone.xpm
+NO        ./textures/NO_wood.xpm
+SO         ./textures/SO_stone.xpm
 WE        ./textures/WE_wood.xpm
-EA ./textures/EA_dirt.xpm
+EA           ./textures/EA_dirt.xpm
+
 
 1111111111
 1000000201
 10E0000201
 1000000001
 1111111111
+
+
+ 
+
+ qwe
+ 

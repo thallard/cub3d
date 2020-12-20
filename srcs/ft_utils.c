@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 17:12:48 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 19:23:45 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	ft_init_flags(t_mlx_info *info)
 	info->w = 0;
 	info->h = 0;
 	info->error = 0;
+	info->c_color[0] = 0;
+	info->c_color[1] = 0;
+	info->c_color[2] = 0;
+	info->f_color[0] = 0;
+	info->f_color[1] = 0;
+	info->f_color[2] = 0;
 }
 
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
@@ -69,5 +75,7 @@ int		ft_print_errors(int error, t_mlx_info *i)
 		return (ft_printf("Error %d : Wrong path for a texture.\n", i->error));
 	if (i->error == -7)
 		return (ft_printf("Error %d : Invalid format map.\n", i->error));
+	if (i->error == -8)
+		return (ft_printf("Error %d : Invalid color floor/ceiling.\n", i->error));
 	return (0);
 }

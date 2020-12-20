@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 16:18:47 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 19:33:22 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 {
 	int		fd;
 	char	*line;
-	char	*map[256];
+	char	*map[4096];
 	int		paths;
 	int		m;
 
@@ -31,20 +31,30 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 	{
 		if ((paths = ft_get_orientation(line)) == 3)
 			m = 1;
+		// if (line[0] == 'F')
+		// 	if (!(ft_fill_color(line, info)))
+		// 		return (0);
 		if (line[0] == 'R' && line[0] != '\0')
 		{
 			if (!ft_fill_resolution(line, info))
 				return (0);
-		}
-		else if (ft_isalpha(line[0]))
+		} 
+		else if (ft_isalpha(line[0]) && info->text[3] == NULL)
 		{
 			if (!ft_fill_path_texture(ft_strdup(line), info, paths))
 				return (0);
 		}
-		else if (m >= 1 && line[0] != '\0')
+		else if (m >= 1 && line && line[0] != '\0')
+		{
+			if (!(ft_map_contains(line, info)))
+				return (0);
 			map[m++ - 1] = ft_strdup(line);
+		}
+			
 		free(line);
 	}
+	if (!(ft_map_contains(line, info)))
+		return (0);
 	map[m++ - 1] = ft_strdup(line);
 	map[m - 1] = 0;
 	if (!(ft_malloc_map(info, map)))
@@ -71,13 +81,13 @@ int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 	str[++tmp] = '\0';
 	dprintf(1, "%s\n", str);
 	i->img = mlx_new_image(i->mlx_ptr, i->w, i->h);
-	if (!i->img)
+	i->int_img = (int *)mlx_get_data_addr(i->img, &j, &j, &j);
+	xpm_image = mlx_xpm_file_to_image(i->mlx_ptr, str, &i->t_w, &i->t_h);
+	if (!xpm_image)
 	{
 		i->error = -6;
 		return (0);
 	}
-	i->int_img = (int *)mlx_get_data_addr(i->img, &j, &j, &j);
-	xpm_image = mlx_xpm_file_to_image(i->mlx_ptr, str, &i->t_w, &i->t_h);
 	i->text[nb_paths] = (int *)mlx_get_data_addr(xpm_image, &j, &j, &j);
 	free(line);
 	return (1);
