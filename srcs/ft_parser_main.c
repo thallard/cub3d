@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/19 16:09:52 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 14:47:47 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 	if ((fd = open(map_name, O_RDONLY)) < 0)
 		return (0);
 	paths = 0;
-
 	m = 0;
 	line = NULL;
 	while (get_next_line(fd, &line) == 1)
@@ -53,23 +52,25 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 	return (1);
 }
 
-int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths)
+int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 {
 	char	str[50];
-	int		i;
+	int		j;
 	int		tmp;
 	void	*xpm_image;
 
-	i = 2;
+	j = 1;
 	tmp = -1;
-	while (line[++i] == ' ' || line[i] == '\t')
+	while (line[++j] == ' ')
 		;
-	while (line[i])
-		str[++tmp] = line[i++];
+	while (line[j])
+		str[++tmp] = line[j++];
 	str[++tmp] = '\0';
 	dprintf(1, "%s\n", str);
-	xpm_image = mlx_xpm_file_to_image(info->mlx_ptr, str, &info->t_w, &info->t_h);
-	info->texture[nb_paths] = (int *)mlx_get_data_addr(xpm_image, &i, &i, &i);
+	i->img = mlx_new_image(i->mlx_ptr, i->w, i->h);
+	i->int_img = (int *)mlx_get_data_addr(i->img, &j, &j, &j);
+	xpm_image = mlx_xpm_file_to_image(i->mlx_ptr, str, &i->t_w, &i->t_h);
+	i->text[nb_paths] = (int *)mlx_get_data_addr(xpm_image, &j, &j, &j);
 	free(line);
 	return (1);
 }
@@ -84,15 +85,15 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 	while (line[++i])
 	{
 		if (ft_isdigit(line[i]) && !space)
-			info->width = info->width * 10 + line[i] - '0';
+			info->w = info->w * 10 + line[i] - '0';
 		if (line[i] == ' ' || line[i] == '\t')
 			space = 1;
 		if (space && ft_isdigit(line[i]))
-			info->height = info->height * 10 + line[i] - '0';
+			info->h = info->h * 10 + line[i] - '0';
 	}
-	if (info->height <= 0 || info->width <= 0)
+	if (info->h <= 0 || info->w <= 0)
 		return (0);
-	info->mlx_win = mlx_new_window(info->mlx_ptr, info->width, info->height, "Cub3D");
+	info->mlx_win = mlx_new_window(info->mlx_ptr, info->w, info->h, "Cub3D");
 	return (1);
 }
 

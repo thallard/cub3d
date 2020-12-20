@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/19 12:47:23 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/20 14:33:09 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,30 @@ void	ft_init_flags(t_mlx_info *info)
 	info->mlx_ptr = NULL;
 	info->mlx_win = NULL;
 	info->img = NULL;
-	info->width = 0;
-	info->height = 0;
+	info->w = 0;
+	info->h = 0;
 }
 
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
 {
-	ray->posX = 2;
-	ray->posY = 2;
-	ray->dirX = 1;
-	ray->dirY = 0;
-	ray->planeX = 0;
-	ray->planeY = 0.66;
-	ray->cameraX = 0;
-	ray->rayDirX = 0;
-	ray->rayDirY = 0;
-	ray->mapX = 0;
-	ray->mapY = 0;
-	ray->sideDistX = 0;
-	ray->sideDistY = 0;
-	ray->deltaDistX = 0;
-	ray->deltaDistY = 0;
-	ray->perpWallDist = 0;
-	ray->drawEnd = 0;
-	ray->drawStart = 0;
-	ray->stepX = 0;
-	ray->stepY = 0;
+	ray->player_x = 2;
+	ray->player_y = 2;
+	ray->dir_x = 1;
+	ray->dir_y = 0;
+	ray->plane_x = 0;
+	ray->plane_y = 0.66;
+	ray->cam = 0;
+	ray->map_x = 0;
+	ray->map_y = 0;
+	ray->side_x = 0;
+	ray->side_y = 0;
+	ray->delta_x = 0;
+	ray->delta_y = 0;
+	ray->w_d = 0;
+	ray->d_e = 0;
+	ray->d_s = 0;
+	ray->step_x = 0;
+	ray->step_y = 0;
 	ray->hit = 0;
 	ray->side = 0;
 	ray->infos = info;
