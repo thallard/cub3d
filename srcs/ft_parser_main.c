@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 19:33:22 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 15:31:44 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,29 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 
 	if ((fd = open(map_name, O_RDONLY)) < 0)
 		return (0);
-	paths = 0;
 	m = 0;
 	line = NULL;
 	while (get_next_line(fd, &line) == 1)
 	{
 		if ((paths = ft_get_orientation(line)) == 3)
 			m = 1;
-		// if (line[0] == 'F')
-		// 	if (!(ft_fill_color(line, info)))
-		// 		return (0);
+		if (line[0] == 'F')
+			if (!(ft_fill_floor_color(line, info)))
+				return (0);
+		if (line[0] == 'C')
+			if (!(ft_fill_ceiling_color(line, info)))
+				return (0);
 		if (line[0] == 'R' && line[0] != '\0')
 		{
 			if (!ft_fill_resolution(line, info))
 				return (0);
 		} 
-		else if (ft_isalpha(line[0]) && info->text[3] == NULL)
+		else if (ft_isalpha(line[0]) && paths != -1)
 		{
 			if (!ft_fill_path_texture(ft_strdup(line), info, paths))
 				return (0);
 		}
-		else if (m >= 1 && line && line[0] != '\0')
+		else if (m >= 1 && line && line[0] != '\0' && !ft_isalpha(line[0]))
 		{
 			if (!(ft_map_contains(line, info)))
 				return (0);
@@ -64,7 +66,6 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 		free(line);
 	return (1);
 }
-
 int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 {
 	char	str[50];
@@ -72,8 +73,9 @@ int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 	int		tmp;
 	void	*xpm_image;
 
-	j = 1;
+	j = 2;
 	tmp = -1;
+	dprintf(1, "oui");
 	while (line[++j] == ' ')
 		;
 	while (line[j])
@@ -99,12 +101,14 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 	int		space;
 
 	space = 0;
-	i = 1;
+	i = 0;
+
 	if (info->h >= 1 || info->w >= 1)
 	{
 		info->error = -5;
 		return (0);
 	}
+	
 	while (line[++i] == ' ')
 		;
 	while (line[i])
@@ -118,7 +122,7 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 		i++;
 	}
 	if (info->h <= 0 || info->w <= 0)
-		return (0);
+		return ((info->error = -5) + 5);
 	dprintf(1, "debug : %d %d\n", info->w, info->h);
 	info->mlx_win = mlx_new_window(info->mlx_ptr, info->w, info->h, "Cub3D");
 	return (1);

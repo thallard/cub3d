@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 18:58:07 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 15:25:35 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int		ft_print_raycasting(t_all *ray, t_mlx_info *info)
 {
 	int		x;
 	double	wall_x;
-
+	
+	if (info->img)
 	mlx_destroy_image(info->mlx_ptr, info->img);
 	info->img = mlx_new_image(info->mlx_ptr, info->w, info->h);
 	info->int_img = (int *)mlx_get_data_addr(info->img, &x, &x, &x);

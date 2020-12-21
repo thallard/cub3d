@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 15:24:41 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 17:54:20 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 15:17:39 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	ft_print_textures(t_all *r, t_mlx_info *i, int x, double wall_x)
 	step = 1.0 * i->t_h / r->line_h;
 	text_pos = (r->d_s - i->h / 2 + r->line_h / 2) * step;
 	while (++j < r->d_s)
-		i->int_img[j * i->w + x] = 180 + 16 * 16 * 216 + 16 * 16 * 16 * 173;
+		i->int_img[j * i->w + x] = ((long)i->c_color[2] + i->c_color[1] * 16 * 16 + 16 * 16 * 16 * 16 * i->c_color[0]);
 	while (r->d_s < r->d_e)
 	{
 		if ((int)text_pos > i->t_h - 1)
@@ -132,5 +132,5 @@ void	ft_print_textures(t_all *r, t_mlx_info *i, int x, double wall_x)
 		i->int_img[r->d_s++ * i->w + x] = i->text[r->pdv][i->t_h * t_y + t_x];
 	}
 	while (r->d_e < i->h)
-		i->int_img[r->d_e++ * i->w + x] = 0;
+		i->int_img[r->d_e++ * i->w + x] = ((long)i->f_color[2] + i->f_color[1] * 16 * 16 + 16 * 16 * 16 * 16 * i->f_color[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 19:24:11 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 13:08:53 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_movements
 	int			key_w;
 	int			key_al;
 	int			key_ar;
+	int			key_escape;
 }				t_movements;
 
 typedef struct	s_all
@@ -113,12 +114,19 @@ int		ft_fill_map(t_mlx_info *i, char **str, int rows);
 int		ft_parcours_map(t_mlx_info *info, char *line);
 int		ft_malloc_map(t_mlx_info *info, char **str);
 int		ft_map_contains(char *line, t_mlx_info *info);
-int		ft_fill_color(char *line, t_mlx_info *info);
+int		ft_fill_floor_color(char *line, t_mlx_info *info);
+int		ft_fill_ceiling_color(char *line, t_mlx_info *info);
 int		ft_fill_resolution(char *line, t_mlx_info *info);
 int		ft_check_map(char *map_name, t_mlx_info *info);
 int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths);
 int		ft_check_walls_map(t_mlx_info *i, int rows, char **str);
 int		ft_check_map_zero(t_mlx_info *i, char **str, int k, int j);
+int		check_map(char *line, t_mlx_info *info, char **map, int map_row);
+int		ft_check_content_map(char *line, t_mlx_info *info,char *map[4096]);
 
+/*
+* Utils part  
+*/
+int		ft_exit_program(t_all *ray, t_mlx_info *info);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:12:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/20 16:15:08 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 15:32:39 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_move_forward(t_all *r)
 {
+	if (r->mov->key_escape)
+		ft_exit_program(r, r->infos);
 	if (r->mov->key_w)
 	{
 		if (r->infos->map[(int)(r->player_x + r->dir_x * 0.13)]
@@ -64,22 +66,22 @@ void	ft_move_right_and_left(t_all *r)
 {
 	if (r->mov->key_a)
 	{
-		r->player_y -= r->dir_x * 0.13;
-		r->player_x += r->dir_y * 0.13;
+		r->player_y -= r->dir_x * SPEED;
+		r->player_x += r->dir_y * SPEED;
 		if (r->infos->map[(int)r->player_x][(int)r->player_y] != 0)
 		{
-			r->player_y += r->dir_x * 0.13;
-			r->player_x -= r->dir_y * 0.13;
+			r->player_y += r->dir_x * SPEED;
+			r->player_x -= r->dir_y * SPEED;
 		}
 	}
 	if (r->mov->key_d)
 	{
-		r->player_y += r->dir_x * 0.13;
-		r->player_x -= r->dir_y * 0.13;
+		r->player_y += r->dir_x * SPEED;
+		r->player_x -= r->dir_y * SPEED;
 		if (r->infos->map[(int)r->player_x][(int)r->player_y] != 0)
 		{
-			r->player_y -= r->dir_x * 0.13;
-			r->player_x += r->dir_y * 0.13;
+			r->player_y -= r->dir_x * SPEED;
+			r->player_x += r->dir_y * SPEED;
 		}
 	}
 	
@@ -99,6 +101,8 @@ int		key_press(int keycode, t_all *ray)
 		ray->mov->key_ar = 1;
 	else if (keycode == 123)
 		ray->mov->key_al = 1;
+	else if (keycode == 53)
+		ray->mov->key_escape = 1;
 	return (keycode);
 }
 
@@ -116,5 +120,7 @@ int		key_release(int keycode, t_all *ray)
 		ray->mov->key_ar = 0;
 	else if (keycode == 123)
 		ray->mov->key_al = 0;
+	else if (keycode == 53)
+		ray->mov->key_escape = 0;
 	return (keycode);
 }
