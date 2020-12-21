@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 13:08:53 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 16:45:58 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int		ft_fill_map(t_mlx_info *i, char **str, int rows);
 int		ft_parcours_map(t_mlx_info *info, char *line);
 int		ft_malloc_map(t_mlx_info *info, char **str);
 int		ft_map_contains(char *line, t_mlx_info *info);
-int		ft_fill_floor_color(char *line, t_mlx_info *info);
-int		ft_fill_ceiling_color(char *line, t_mlx_info *info);
+int		ft_fill_floor_color(char *line, t_mlx_info *i, int color, int nb);
+int		ft_fill_ceiling_color(char *line, t_mlx_info *i, int color, int nb);
 int		ft_fill_resolution(char *line, t_mlx_info *info);
 int		ft_check_map(char *map_name, t_mlx_info *info);
 int		ft_fill_path_texture(char *line, t_mlx_info *info, int nb_paths);

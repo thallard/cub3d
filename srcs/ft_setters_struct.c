@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 09:04:25 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 16:11:39 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	ft_init_flags(t_mlx_info *info)
 	info->w = 0;
 	info->h = 0;
 	info->error = 0;
+	info->text[0] = NULL;
+	info->text[1] = NULL;
+	info->text[2] = NULL;
+	info->text[3] = NULL;
 	info->c_color[0] = 0;
 	info->c_color[1] = 0;
 	info->c_color[2] = 0;

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 18:48:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 15:19:11 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 16:55:55 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,21 @@ int		ft_check_content_map(char *line, t_mlx_info *info,char *map[4096])
 	dprintf(1, "debug m en haut %d\n", m);
 	if ((paths = ft_get_orientation(line)) == 3 && info->text[3] != NULL)
 			m = 1;
-	if (line[0] == 'C')
-	{
-		if (!(ft_fill_ceiling_color(line, info)))
-			return (-1);
-	}
-	else if (line[0] == 'F')
-	{	
-		if (!(ft_fill_floor_color(line, info)))
-			return (-1);
-	}
-	else if (line[0] == 'R' && line[0] != '\0')
-	{
-	if (!ft_fill_resolution(line, info))
+	if (line[0] == 'C' && !(ft_fill_ceiling_color(line, info, -1, 0)))
 		return (-1);
-	} 
+	else if (line[0] == 'F' && !(ft_fill_floor_color(line, info, -1, 0)))
+		return (-1);
+	else if (line[0] == 'R' && !line[0] && !ft_fill_resolution(line, info))
+		return (-1);
 	else if (ft_isalpha(line[0]) && paths <= 3)
 	{
 		if (!ft_fill_path_texture(ft_strdup(line), info, paths))
 			return (-1);
 	}
 	else if (m >= 1 && line && line[0] != '\0' && line[0] == '1')
-	{dprintf(1, "debug m %d\n", m);
+	{
 		if (!(ft_map_contains(line, info)))
 			return (-1);
-		dprintf(1, "debug m %d\n", m);
 		map[m++ - 1] = ft_strdup(line);
 	}
 	free(line);
@@ -54,7 +44,7 @@ int		ft_check_content_map(char *line, t_mlx_info *info,char *map[4096])
 }
 
 int		check_map(char *line, t_mlx_info *info, char **map, int map_row)
-{	
+{
 	if (!(ft_map_contains(line, info)))
 		return (0);
 	map[map_row++ - 1] = ft_strdup(line);
@@ -72,70 +62,65 @@ int		ft_map_contains(char *line, t_mlx_info *info)
 
 	i = -1;
 	while (line[++i])
-		if (line[i] != '1' && line[i] != '0' && line[i] != '2' && line[i] != '3' 
-							&& line[i] != 'N' && line[i] != 'E' && line[i] != 'O' 
-							&& line[i] != 'S' && line[i] != ' ')
-		{
-			dprintf(1, "%c\n", line[i]);
-			info->error = -7;
-			return (0);
-		}
-			
+		if (line[i] != '1' && line[i] != '0' && line[i] != '2' && line[i] != '3'
+						&& line[i] != 'N' && line[i] != 'E' && line[i] != 'O'
+						&& line[i] != 'S' && line[i] != ' ')
+			return ((info->error = -7) + 7);
 	return (1);
 }
 
-int		ft_fill_floor_color(char *line, t_mlx_info *info)
+int		ft_fill_floor_color(char *line, t_mlx_info *i, int color, int nb)
 {
-	int		i;
-	int		color;
-	int		nb;
+	int		j;
 
-	nb = 0;
-	color = -1;
-	i = 0;
-	if (info->f_color[0] > 0 && info->f_color[1] > 0 && info->f_color[2] > 0)
-		return ((info->error = -8) + 8);
-	while (line[++i])
-		if (line[i] == ' ')
+	j = 0;
+	if (i->f_color[0] > 0 && i->f_color[1] > 0 && i->f_color[2] > 0)
+		return ((i->error = -8) + 8);
+	while (line[++j])
+	{
+		if (line[j] == ' ' && (color >= 0 || nb != 0))
+			return ((i->error = -8) + 8);
+		if (line[j] == ' ')
 			continue ;
-		else if (ft_isprint(line[i]) && line[i] != ',' && !ft_isdigit(line[i]))
-			return ((info->error = -8) + 8);
-		else if (ft_isdigit(line[i]))
-			nb = nb * 10 + line[i] - '0';
-		else if (line[i] == ',')
+		if (ft_isprint(line[j]) && line[j] != ',' && !ft_isdigit(line[j]))
+			return ((i->error = -8) + 8);
+		if (ft_isdigit(line[j]))
+			nb = nb * 10 + line[j] - '0';
+		if (line[j] == ',' || line[j + 1] == '\0')
 		{
 			if (++color > 3 || nb > 255)
-				return ((info->error = -8) + 8);
-			info->f_color[color] = nb;
+				return ((i->error = -8) + 8);
+			i->f_color[color] = nb;
 			nb = 0;
 		}
+	}
 	return (1);
 }
 
-int		ft_fill_ceiling_color(char *line, t_mlx_info *info)
+int		ft_fill_ceiling_color(char *line, t_mlx_info *i, int color, int nb)
 {
-	int		i;
-	int		color;
-	int		nb;
+	int		j;
 
-	nb = 0;
-	color = -1;
-	i = 0;
-	if (info->c_color[0] > 0 && info->c_color[1] > 0 && info->c_color[2] > 0)
-		return ((info->error = -8) + 8);
-	while (line[++i])
-		if (line[i] == ' ')
+	j = 0;
+	if (i->c_color[0] > 0 && i->c_color[1] > 0 && i->c_color[2] > 0)
+		return ((i->error = -8) + 8);
+	while (line[++j])
+	{
+		if (line[j] == ' ' && (color >= 0 || nb != 0))
+			return ((i->error = -8) + 8);
+		if (line[j] == ' ')
 			continue ;
-		else if (ft_isprint(line[i]) && line[i] != ',' && !ft_isdigit(line[i]))
-			return ((info->error = -8) + 8);
-		else if (ft_isdigit(line[i]))
-			nb = nb * 10 + line[i] - '0';
-		else if (line[i] == ',')
+		if (ft_isprint(line[j]) && line[j] != ',' && !ft_isdigit(line[j]))
+			return ((i->error = -8) + 8);
+		if (ft_isdigit(line[j]))
+			nb = nb * 10 + line[j] - '0';
+		if (line[j] == ',' || line[j + 1] == '\0')
 		{
 			if (++color > 3 || nb > 255)
-				return ((info->error = -8) + 8);
-			info->c_color[color] = nb;
+				return ((i->error = -8) + 8);
+			i->c_color[color] = nb;
 			nb = 0;
 		}
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 15:31:44 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 16:48:10 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int		ft_check_map(char *map_name, t_mlx_info *info)
 		if ((paths = ft_get_orientation(line)) == 3)
 			m = 1;
 		if (line[0] == 'F')
-			if (!(ft_fill_floor_color(line, info)))
+			if (!(ft_fill_floor_color(line, info, -1, 0)))
 				return (0);
 		if (line[0] == 'C')
-			if (!(ft_fill_ceiling_color(line, info)))
+			if (!(ft_fill_ceiling_color(line, info, -1, 0)))
 				return (0);
 		if (line[0] == 'R' && line[0] != '\0')
 		{
@@ -85,7 +85,7 @@ int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 	i->img = mlx_new_image(i->mlx_ptr, i->w, i->h);
 	i->int_img = (int *)mlx_get_data_addr(i->img, &j, &j, &j);
 	xpm_image = mlx_xpm_file_to_image(i->mlx_ptr, str, &i->t_w, &i->t_h);
-	if (!xpm_image)
+	if (!xpm_image || i->text[nb_paths] != 0)
 	{
 		i->error = -6;
 		return (0);

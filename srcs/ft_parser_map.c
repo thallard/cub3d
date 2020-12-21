@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 13:54:28 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 16:13:29 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		ft_fill_map(t_mlx_info *i, char **str, int rows)
 		tmp = l;
 		while (str[k][++j])
 		{
-			if (str[k][j] == '0' || str[k][j] == '2')
+			if (str[k][j] == '0' || str[k][j] == '2' || ft_isalpha(str[k][j]))
 			{
 				i->map[k][++l] = str[k][j] - '0';
 				str[k][j] = '4';
