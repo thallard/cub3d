@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 15:55:53 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 16:15:47 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,6 @@ int		ft_fill_sprite(char *line, t_mlx_info *info);
 */
 int		ft_exit_program(t_all *ray);
 int		get_spawns(char **str);
+int		check_ext(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 15:53:18 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 16:16:34 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_check_map(char *map_name, t_mlx_info *info, int m, int paths)
 	char *line;
 	char *map[4096];
 
-	if ((fd = open(map_name, O_RDONLY)) < 0)
+	if (check_ext(map_name) || (fd = open(map_name, O_RDONLY)) < 0)
 		return ((info->error = -1) + 1);
 	while (get_next_line(fd, &line) == 1)
 	{

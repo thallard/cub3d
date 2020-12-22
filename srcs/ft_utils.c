@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 15:47:00 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 16:17:39 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_exit_program(t_all *ray)
 int		ft_print_errors(int error, t_mlx_info *i)
 {
 	if (i->error == -1)
-		return (ft_printf("Error\n%d : Map error.\n", error));
+		return (ft_printf("Error\n%d : Wrong file/name file.\n", error));
 	if (i->error == -5)
 		return (ft_printf("Error\n%d : Wrong resolution in config file.\n", i->error));
 	if (i->error == -6)
@@ -55,4 +55,16 @@ int		get_spawns(char **str)
 				s = s + 1;
 	}
 	return (s);
+}
+
+int		check_ext(char *str)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i] != '.')
+		;
+	if (!ft_strncmp(str + i, ".cub", 5))
+		return (0);
+	return (1);
 }
