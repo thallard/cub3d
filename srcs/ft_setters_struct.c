@@ -6,14 +6,14 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 16:11:39 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 09:02:18 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include "../includes/libft.h"
 
-void	ft_init_flags(t_mlx_info *info)
+void	ft_init_flags(t_mlx_info *info, t_sprite *sprites)
 {
 	info->mlx_ptr = NULL;
 	info->mlx_win = NULL;
@@ -31,12 +31,13 @@ void	ft_init_flags(t_mlx_info *info)
 	info->f_color[0] = 0;
 	info->f_color[1] = 0;
 	info->f_color[2] = 0;
+	info->sprite = sprites;
 }
 
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
 {
-	ray->player_x = 2;
-	ray->player_y = 2;
+	ray->player_x = 1.01;
+	ray->player_y = 1.01;
 	ray->dir_x = 1;
 	ray->dir_y = 0;
 	ray->plane_x = 0;

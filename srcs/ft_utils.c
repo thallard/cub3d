@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 09:04:23 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 19:02:23 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,35 @@ int		ft_exit_program(t_all *ray, t_mlx_info *info)
 
 int		ft_print_errors(int error, t_mlx_info *i)
 {
-	if (error == -1)
-		return (ft_printf("Error %d : Map error.\n", error));
+	if (i->error == -1)
+		return (ft_printf("Error\n%d : Map error.\n", error));
 	if (i->error == -5)
-		return (ft_printf("Error %d : Wrong resolution in config file.\n", i->error));
+		return (ft_printf("Error\n%d : Wrong resolution in config file.\n", i->error));
 	if (i->error == -6)
-		return (ft_printf("Error %d : Wrong path for a texture.\n", i->error));
+		return (ft_printf("Error\n%d : Wrong path for a texture.\n", i->error));
 	if (i->error == -7)
-		return (ft_printf("Error %d : Invalid format map.\n", i->error));
+		return (ft_printf("Error\n%d : Invalid format map.\n", i->error));
 	if (i->error == -8)
-		return (ft_printf("Error %d : Invalid color floor/ceiling.\n", i->error));
+		return (ft_printf("Error\n%d : Invalid color floor/ceiling.\n", i->error));
+	if (i->error == -9)
+		return (ft_printf("Error\n%d : Invalid path sprite.\n", i->error));
 	return (0);
+}
+
+int		get_spawns(char **str)
+{
+	int		s;
+	int		i;
+	int		j;
+
+	j = -1;
+	s = 0;
+	while (str[++j])
+	{
+		i = -1;
+		while (str[j][++i])
+			if (ft_isalpha(str[j][i]))
+				s = s + 1;
+	}
+	return (s);
 }

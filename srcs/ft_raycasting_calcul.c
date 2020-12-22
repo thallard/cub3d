@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 15:24:41 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 15:17:39 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 09:19:59 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_check_ray_hit_wall(t_all *ray, t_mlx_info *info)
 	}
 }
 
-double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info)
+double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info, int x)
 {
 	double	wall_x;
 
@@ -101,6 +101,7 @@ double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info)
 		ray->d_s = 0;
 	if (ray->d_e >= info->h)
 		ray->d_e = info->h - 1;
+	info->sprite->z_buf[x] = ray->w_d;
 	return (wall_x);
 }
 

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 16:48:10 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 09:03:10 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,68 +14,42 @@
 #include "../includes/libft.h"
 #include "../includes/mlx.h"
 
-int		ft_check_map(char *map_name, t_mlx_info *info)
+int		ft_check_map(char *map_name, t_mlx_info *info, int m, int paths)
 {
-	int		fd;
-	char	*line;
-	char	*map[4096];
-	int		paths;
-	int		m;
+	int fd;
+	char *line;
+	char *map[4096];
 
 	if ((fd = open(map_name, O_RDONLY)) < 0)
-		return (0);
-	m = 0;
-	line = NULL;
+		return ((info->error = -1) + 1);
 	while (get_next_line(fd, &line) == 1)
 	{
 		if ((paths = ft_get_orientation(line)) == 3)
 			m = 1;
-		if (line[0] == 'F')
-			if (!(ft_fill_floor_color(line, info, -1, 0)))
-				return (0);
-		if (line[0] == 'C')
-			if (!(ft_fill_ceiling_color(line, info, -1, 0)))
-				return (0);
-		if (line[0] == 'R' && line[0] != '\0')
-		{
-			if (!ft_fill_resolution(line, info))
-				return (0);
-		} 
-		else if (ft_isalpha(line[0]) && paths != -1)
-		{
-			if (!ft_fill_path_texture(ft_strdup(line), info, paths))
-				return (0);
-		}
-		else if (m >= 1 && line && line[0] != '\0' && !ft_isalpha(line[0]))
+		if (!(ft_check_content_map(line, info, paths)))
+			return (0);
+		if (m >= 1 && line[0] != '\0' && paths == -1 && !ft_isalpha(line[0]))
 		{
 			if (!(ft_map_contains(line, info)))
 				return (0);
 			map[m++ - 1] = ft_strdup(line);
 		}
-			
 		free(line);
 	}
-	if (!(ft_map_contains(line, info)))
+	if (!(check_map(line, info, map, m)))
 		return (0);
-	map[m++ - 1] = ft_strdup(line);
-	map[m - 1] = 0;
-	if (!(ft_malloc_map(info, map)))
-		return (0);
-	// ft_parcours_map(info, line);
-	if (line)
-		free(line);
 	return (1);
 }
-int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
+
+int ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 {
-	char	str[50];
-	int		j;
-	int		tmp;
-	void	*xpm_image;
+	char str[400];
+	int j;
+	int tmp;
+	void *xpm_image;
 
 	j = 2;
 	tmp = -1;
-	dprintf(1, "oui");
 	while (line[++j] == ' ')
 		;
 	while (line[j])
@@ -97,8 +71,8 @@ int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 
 int		ft_fill_resolution(char *line, t_mlx_info *info)
 {
-	int		i;
-	int		space;
+	int i;
+	int space;
 
 	space = 0;
 	i = 0;
@@ -108,7 +82,7 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 		info->error = -5;
 		return (0);
 	}
-	
+
 	while (line[++i] == ' ')
 		;
 	while (line[i])
@@ -125,6 +99,28 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 		return ((info->error = -5) + 5);
 	dprintf(1, "debug : %d %d\n", info->w, info->h);
 	info->mlx_win = mlx_new_window(info->mlx_ptr, info->w, info->h, "Cub3D");
+	return (1);
+}
+
+int		ft_fill_sprite(char *line, t_mlx_info *i)
+{
+	int		l;
+	char	tmp[400];
+	int		j;
+	void	*sprite;
+	
+	j = -1;
+	l = 1;
+	while (line[++l] == ' ')
+		;
+	while (line[l])
+		tmp[++j] = line[l++];
+	tmp[++j] = '\0';
+	dprintf(1, "debug sprite %s\n", tmp);
+	sprite = mlx_xpm_file_to_image(i->mlx_ptr, tmp, &i->s_w, &i->s_h);
+	if (!sprite)
+		return ((i->error = -9) + 9);
+	i->sprite->int_spr = (int *)mlx_get_data_addr(sprite, &j, &j, &j);
 	return (1);
 }
 

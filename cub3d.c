@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 15:25:35 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 09:17:53 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ int		ft_print_raycasting(t_all *ray, t_mlx_info *info)
 	info->img = mlx_new_image(info->mlx_ptr, info->w, info->h);
 	info->int_img = (int *)mlx_get_data_addr(info->img, &x, &x, &x);
 	x = -1;
+
+	double	z_buf[info->w];
+
 	while (++x < info->w)
 	{
 		if (!(ft_init_raycasting_var(ray, x, info)))
 			return (0);
 		ft_calculate_step_sidedest(ray);
 		ft_check_ray_hit_wall(ray, info);
-		wall_x = ft_last_calcul_before_render(ray, info);
+		wall_x = ft_last_calcul_before_render(ray, info, x);
 		ft_print_textures(ray, info, x, wall_x);
 	}
 	mlx_put_image_to_window(info->mlx_ptr, info->mlx_win, info->img, 0, 0);
@@ -51,11 +54,12 @@ int		main(int argc, char **argv)
 	t_mlx_info	i;
 	t_all		ray;
 	t_movements	mov;
+	t_sprite	sprite;
 
 	ft_init_flags_movements(&mov);
-	ft_init_flags(&i);
+	ft_init_flags(&i, &sprite);
 	i.mlx_ptr = mlx_init();
-	if (argc != 2 || !ft_check_map(argv[1], &i))
+	if (argc != 2 || !ft_check_map(argv[1], &i, 0, 0))
 		return (ft_print_errors(0, &i));
 	ft_init_flags_raycasting(&ray, &i, &mov);
 	ft_print_raycasting(&ray, &i);

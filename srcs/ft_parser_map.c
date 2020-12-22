@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 16:13:29 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 18:21:34 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_malloc_map(t_mlx_info *i, char **str)
 	l = 0;
 	while (str[l++])
 		;
-	if (!(i->map = malloc(sizeof(int *) * (l + 1))))
+	if (!(i->map = malloc(sizeof(int *) * (l + 10))))
 		return (0);
 	l = -1;
 	while (str[++l])
@@ -32,14 +32,11 @@ int		ft_malloc_map(t_mlx_info *i, char **str)
 		size = 1;
 		while (str[l][++j])
 			size++;
-		if (!(i->map[l] = malloc(sizeof(int) * size + 1)))
+		if (!(i->map[l] = malloc(sizeof(int) * size + 10)))
 			return (0);
 	}
-	if (!(ft_fill_map(i, str, l)))
-	{
-		i->error = -7;
-		return (0);
-	}
+	if (get_spawns(str) >= 2 || !(ft_fill_map(i, str, l, -1)))
+		return ((i->error = -7) + 7);
 	return (1);
 }
 
@@ -57,7 +54,8 @@ int		ft_check_walls_map(t_mlx_info *i, int rows, char **str)
 		{
 			if (str[j][k] == '4')
 			{
-				if (k == (int)ft_strlen(str[j]) - 1 || !k || j == rows || j == 0)
+							dprintf(1, "%s %d %d\n", str[j], j, k);
+				if (k == (int)ft_strlen(str[j]) || k == 0 || j == rows || j == 0)
 					return (0);
 				else if (!(ft_check_map_zero(i, str, k, j)))
 					return (0);
@@ -77,40 +75,36 @@ int		ft_check_map_zero(t_mlx_info *i, char **s, int k, int j)
 		return (0);
 	else if (s[j + 1][k - 1] == '5' || s[j + 1][k] == '5'
 									|| s[j + 1][k + 1] == '5')
-		return (0);
+		{
+
+			return (0);
+		}
+		
 	return (1);
 }
 
-int		ft_fill_map(t_mlx_info *i, char **str, int rows)
+int		ft_fill_map(t_mlx_info *i, char **str, int rows, int k)
 {
-	int		k;
 	int		j;
-	int		l;
-	int		tmp;
-
-	k = -1;
+	
 	while (str[++k])
 	{
 		j = -1;
-		l = -1;
-		tmp = l;
 		while (str[k][++j])
-		{
-			if (str[k][j] == '0' || str[k][j] == '2' || ft_isalpha(str[k][j]))
+			if (str[k][j] == ' ')
 			{
-				i->map[k][++l] = str[k][j] - '0';
+				str[k][j] = '5';
+				i->map[k][j] = 4;
+			}
+			else if (str[k][j] == '0' || str[k][j] == '2' || ft_isalpha(str[k][j]))
+			{
+				i->map[k][j] = str[k][j] - '0';
 				str[k][j] = '4';
 			}
 			else if (ft_isdigit(str[k][j]))
-				i->map[k][++l] = str[k][j] - '0';
-			else if (str[k][j] == ' ')
-			{
-				str[k][j] = '5';
-				i->map[k][++l] = 4;
-			}
-		}
+				i->map[k][j] = str[k][j] - '0';
 	}
-	if (!(ft_check_walls_map(i, rows, str)))
+	if (get_spawns(str) >= 2 || !(ft_check_walls_map(i, rows, str)))
 		return (0);
 	return (1);
 }
