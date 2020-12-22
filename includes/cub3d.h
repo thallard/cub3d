@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 09:18:03 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:55:53 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,28 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define SPEED 0.10
-# define ROTATE 0.04
+# define SPEED 0.15
+# define ROTATE 0.08
+
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	double		s_x;
+	double		s_y;
+	int			*int_spr;
+	double		inv_d;
+	double		t_y;
+	double		t_x;
+	int			s_spr_x;
+	int			s_h;
+	int			s_dsx;
+	int			s_dex;
+	int			s_dsy;
+	int			s_dey;
+	int			s_width;
+	int			z_buf[3660];
+}				t_sprite;
 
 typedef struct	s_mlx_info
 {
@@ -55,13 +75,7 @@ typedef struct	s_movements
 	int			key_escape;
 }				t_movements;
 
-typedef struct	s_sprite
-{
-	double	x;
-	double	y;
-	int		*int_spr;
-	int		z_buf[3660];
-}				t_sprite;
+
 
 typedef struct	s_all
 {
@@ -102,12 +116,14 @@ int		ft_print_errors(int error, t_mlx_info *i);
 /*
 * Rendering part (raycasting)
 */
-int		ft_print_raycasting(t_all *ray, t_mlx_info *info);
+int		ft_print_raycasting(t_all *ray, t_mlx_info *info, t_sprite *s);
 int		ft_init_raycasting_var(t_all *ray, int x, t_mlx_info *info);
 void	ft_calculate_step_sidedest(t_all *ray);
 void	ft_check_ray_hit_wall(t_all *ray, t_mlx_info *info);
 double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info, int x);
 void	ft_print_textures(t_all *ray, t_mlx_info *i, int x, double wall_x);
+void	ft_calcul_sprites(t_all *ray, t_mlx_info *i, t_sprite *s);
+void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int x);
 
 /*
 * Movements part (player)
@@ -139,7 +155,7 @@ int		ft_fill_sprite(char *line, t_mlx_info *info);
 /*
 * Utils part  
 */
-int		ft_exit_program(t_all *ray, t_mlx_info *info);
+int		ft_exit_program(t_all *ray);
 int		get_spawns(char **str);
 
 #endif

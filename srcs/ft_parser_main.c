@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 09:03:10 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:53:18 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ int ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 	i->int_img = (int *)mlx_get_data_addr(i->img, &j, &j, &j);
 	xpm_image = mlx_xpm_file_to_image(i->mlx_ptr, str, &i->t_w, &i->t_h);
 	if (!xpm_image || i->text[nb_paths] != 0)
-	{
-		i->error = -6;
-		return (0);
-	}
+		return ((i->error = -6) + 6);
 	i->text[nb_paths] = (int *)mlx_get_data_addr(xpm_image, &j, &j, &j);
 	free(line);
 	return (1);

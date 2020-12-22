@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 19:02:23 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:47:00 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 #include "../includes/libft.h"
 #include "../includes/cub3d.h"
 
-int		ft_exit_program(t_all *ray, t_mlx_info *info)
+int		ft_exit_program(t_all *ray)
 {
-	(void)info;
-	(void)ray;
-	mlx_destroy_image(info->mlx_ptr, ray->infos->img);
-	mlx_destroy_window(info->mlx_ptr, info->mlx_win);
+	mlx_destroy_image(ray->infos->mlx_ptr, ray->infos->img);
+	mlx_destroy_window(ray->infos->mlx_ptr, ray->infos->mlx_win);
 	exit(0);
 	return (1);
 }

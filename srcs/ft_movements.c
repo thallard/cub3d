@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:12:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 15:59:09 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:47:32 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_move_forward(t_all *r)
 {
 	if (r->mov->key_escape)
-		ft_exit_program(r, r->infos);
+		ft_exit_program(r);
 	if (r->mov->key_w)
 	{
 		if (r->infos->map[(int)(r->player_x + r->dir_x * 0.13)]

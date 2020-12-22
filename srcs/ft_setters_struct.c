@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 09:02:18 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 14:40:56 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	ft_init_flags(t_mlx_info *info, t_sprite *sprites)
 	info->f_color[1] = 0;
 	info->f_color[2] = 0;
 	info->sprite = sprites;
+	info->sprite->x = 2;
+	info->sprite->y = 6;
 }
 
 void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
@@ -41,7 +43,7 @@ void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov)
 	ray->dir_x = 1;
 	ray->dir_y = 0;
 	ray->plane_x = 0;
-	ray->plane_y = 0.50;
+	ray->plane_y = 0.66;
 	ray->cam = 0;
 	ray->map_x = 0;
 	ray->map_y = 0;

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 15:24:41 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 09:19:59 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 11:51:51 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_check_ray_hit_wall(t_all *ray, t_mlx_info *info)
 			ray->side = 1;
 			ray->pdv = ray->ray_y > 0 ? 2 : 3;
 		}
-		if (info->map[ray->map_x][ray->map_y] > 0)
+		if (info->map[ray->map_x][ray->map_y] == 1)
 			ray->hit = 1;
 	}
 }
