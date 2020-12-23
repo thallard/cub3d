@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 17:58:57 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 14:26:14 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		ft_print_errors(int error, t_mlx_info *i)
 	if (i->error == -3)
 		return (ft_printf("Error\n%d : Wrong player position.\n", error));
 	if (i->error == -5)
-		return (ft_printf("Error\n%d : Wrong resolution in config file.\n", i->error));
+		return (ft_printf("Error\n%d : Wrong resolution set.\n", i->error));
 	if (i->error == -6)
 		return (ft_printf("Error\n%d : Wrong path for a texture.\n", i->error));
 	if (i->error == -7)
 		return (ft_printf("Error\n%d : Invalid format map.\n", i->error));
 	if (i->error == -8)
-		return (ft_printf("Error\n%d : Invalid color floor/ceiling.\n", i->error));
+		return (ft_printf("Error\n%d : Invalid floor/ceiling.\n", i->error));
 	if (i->error == -9)
 		return (ft_printf("Error\n%d : Invalid path sprite.\n", i->error));
 	return (0);
@@ -56,9 +56,8 @@ int		get_spawns(char **str)
 			if (ft_isalpha(str[j][i]))
 				s = s + 1;
 	}
-	dprintf(1, "valeur de s = %d", s);
-	// if (s == 0 || s >= 2)
-	// 	return (0);
+	if (s == 0 || s >= 2)
+		return (0);
 	return (1);
 }
 
@@ -72,4 +71,26 @@ int		check_ext(char *str)
 	if (!ft_strncmp(str + i, ".cub", 5))
 		return (0);
 	return (1);
+}
+
+void	ft_set_orientation(t_all *r, t_mlx_info *i)
+{
+	double		s_x;
+	double		var;
+
+	if (i->orientation == 'N')
+		var = -3.14 / 2;
+	else if (i->orientation == 'S')
+		var = 3.14 / 2;
+	else if (i->orientation == 'O')
+		var = 3.14;
+	else
+		return ;
+	s_x = r->dir_x;
+	r->dir_x = r->dir_x * cos(var) - r->dir_y * sin(var);
+	r->dir_y = s_x * sin(var) + r->dir_y * cos(var);
+	s_x = r->plane_x;
+	r->plane_x = r->plane_x * cos(var) -
+				r->plane_y * sin(var);
+	r->plane_y = s_x * sin(var) + r->plane_y * cos(var);
 }

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 18:48:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 19:09:23 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 16:58:25 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_check_content_map(char *line, t_mlx_info *info, int paths)
 	if (line[0] == 'C')
 		if (!(ft_fill_ceiling_color(line, info, -1, 0)))
 			return (0);
-	if (line[0] == 'S')
+	if (line[0] == 'S' && line[1] == ' ')
 		if (!(ft_fill_sprite(line, info)))
 			return (0);
 	if (line[0] == 'R' && line[0] != '\0')

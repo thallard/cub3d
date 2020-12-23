@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 16:16:34 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 16:58:48 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_check_map(char *map_name, t_mlx_info *info, int m, int paths)
 	return (1);
 }
 
-int ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
+int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 {
 	char str[400];
 	int j;
@@ -73,13 +73,8 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 
 	space = 0;
 	i = 0;
-
 	if (info->h >= 1 || info->w >= 1)
-	{
-		info->error = -5;
-		return (0);
-	}
-
+		return ((info->error = -5) + 5);
 	while (line[++i] == ' ')
 		;
 	while (line[i])
@@ -94,8 +89,9 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 	}
 	if (info->h <= 0 || info->w <= 0)
 		return ((info->error = -5) + 5);
+	ft_checker_resolution(info);
 	dprintf(1, "debug : %d %d\n", info->w, info->h);
-	info->mlx_win = mlx_new_window(info->mlx_ptr, info->w, info->h, "Cub3D");
+	info->mlx_win = mlx_new_window(info->mlx_ptr, info->w, info->h, "cub3D");
 	return (1);
 }
 
@@ -115,9 +111,10 @@ int		ft_fill_sprite(char *line, t_mlx_info *i)
 	tmp[++j] = '\0';
 	dprintf(1, "debug sprite %s\n", tmp);
 	sprite = mlx_xpm_file_to_image(i->mlx_ptr, tmp, &i->s_w, &i->s_h);
-	if (!sprite)
+	if (!sprite || i->sprite->s_path == 1)
 		return ((i->error = -9) + 9);
 	i->sprite->int_spr = (int *)mlx_get_data_addr(sprite, &j, &j, &j);
+	i->sprite->s_path = 1;
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 14:59:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 10:48:05 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 16:41:25 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "../includes/libft.h"
 #include "../includes/cub3d.h"
 
-void	ft_calcul_sprites(t_all *ray, t_mlx_info *info, t_sprite *s)
+void	ft_calcul_sprites(t_all *ray, t_mlx_info *info, t_sprite *s, int n)
 {
-	s->s_x = info->sprite->x - ray->player_x + 0.5;
-	s->s_y = info->sprite->y - ray->player_y + 0.5;
+	s->s_x = s->sprites[n][1] - ray->player_x + 0.5;
+	s->s_y = s->sprites[n][0] - ray->player_y + 0.5;
 	s->inv_d = 1.0 / (ray->plane_x * ray->dir_y - ray->dir_x * ray->plane_y);
 	s->t_x = s->inv_d * (ray->dir_y * s->s_x - ray->dir_x * s->s_y);
 	s->t_y = s->inv_d * (-ray->plane_y * s->s_x + ray->plane_x * s->s_y);
@@ -38,13 +38,15 @@ void	ft_calcul_sprites(t_all *ray, t_mlx_info *info, t_sprite *s)
 		s->s_dex = info->w - 1;
 }
 
-void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int x)
+void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int n)
 {
 	int		y;
 	int		t_x;
 	int		d;
 	int		t_y;
+	int		x;
 
+	(void)n;
 	(void)ray;
 	x = s->s_dsx - 1;
 	while (++x < s->s_dex)
@@ -61,4 +63,44 @@ void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int x)
 					i->int_img[y * i->w + x] = s->int_spr[i->s_h * t_y + t_x];
 			}
 	}
+}
+
+void	ft_fill_sprites_map(t_mlx_info *i, char **str)
+{
+	int		j;
+	int		k;
+	int		nb;
+	int		*pos;
+
+	
+	nb = 0;
+	k = -1;
+	j = -1;
+	while (str[++k])
+	{
+		j = -1;
+		while (str[k][++j])
+			if (str[k][j] == '2')
+			{
+				pos = malloc(sizeof(int) * 2);
+				pos[0] = k;
+				pos[1] = j;
+				i->sprite->sprites[nb++] = pos;
+			}
+	}
+	i->sprite->sprites[nb] = 0;
+}
+
+void	ft_checker_resolution(t_mlx_info *info)
+{
+	if (info->h % 320 != 0)
+		while (info->h % 320 != 0)
+			info->h++;
+	if (info->w % 320 != 0)
+		while (info->w % 320 != 0)
+			info->w++;
+	if (info->w > 2560)
+		info->w = 2560;
+	if (info->h > 1440)
+		info->h = 1440;
 }

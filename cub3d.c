@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 17:18:30 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 15:57:34 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ int		ft_print_raycasting(t_all *ray, t_mlx_info *info, t_sprite *s)
 		wall_x = ft_last_calcul_before_render(ray, info, x);
 		ft_print_textures(ray, info, x, wall_x);
 	}
-	ft_calcul_sprites(ray, info, s);
+	x = -1;
+	while (s->sprites[++x] != 0)
+	{	
+		ft_calcul_sprites(ray, info, s, x);
+		ft_print_sprites(ray, info, s, 0);
+	}
 	ft_print_sprites(ray, info, s, 0);
 	mlx_put_image_to_window(info->mlx_ptr, info->mlx_win, info->img, 0, 0);
 	return (1);
@@ -61,6 +66,7 @@ int		main(int argc, char **argv)
 	if (argc != 2 || !ft_check_map(argv[1], &i, 0, 0))
 		return (ft_print_errors(0, &i));
 	ft_init_flags_raycasting(&ray, &i, &mov);
+	ft_set_orientation(&ray, &i);
 	if (!(ft_print_raycasting(&ray, &i, ray.infos->sprite)))
 		return (ft_print_errors(0, &i));
 	mlx_hook(i.mlx_win, 02, 1L<<0, key_press, &ray);

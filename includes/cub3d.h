@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 18:10:32 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 16:52:48 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct	s_sprite
 	int			s_dsy;
 	int			s_dey;
 	int			s_width;
-	int			z_buf[3660];
+	double		z_buf[3660];
+	int			*sprites[100];
+	int			s_path;
 }				t_sprite;
 
 typedef struct	s_mlx_info
@@ -63,6 +65,7 @@ typedef struct	s_mlx_info
 	int			s_h;
 	double		player_x;
 	double		player_y;
+	char		orientation;
 	t_sprite	*sprite;
 }				t_mlx_info;
 
@@ -124,7 +127,7 @@ void	ft_calculate_step_sidedest(t_all *ray);
 void	ft_check_ray_hit_wall(t_all *ray, t_mlx_info *info);
 double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info, int x);
 void	ft_print_textures(t_all *ray, t_mlx_info *i, int x, double wall_x);
-void	ft_calcul_sprites(t_all *ray, t_mlx_info *i, t_sprite *s);
+void	ft_calcul_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int n);
 void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int x);
 
 /*
@@ -153,7 +156,9 @@ int		ft_check_map_zero(t_mlx_info *i, char **str, int k, int j);
 int		check_map(char *line, t_mlx_info *info, char **map, int map_row);
 int		ft_check_content_map(char *line, t_mlx_info *info, int paths);
 int		ft_fill_sprite(char *line, t_mlx_info *info);
-void	ft_set_player_spawn(t_mlx_info *info, int y, int x);
+void	ft_set_player_spawn(t_mlx_info *info, int y, int x, char c);
+void	ft_fill_sprites_map(t_mlx_info *i, char **str);
+void	ft_checker_resolution(t_mlx_info *info);
 
 /*
 * Utils part  
@@ -161,6 +166,7 @@ void	ft_set_player_spawn(t_mlx_info *info, int y, int x);
 int		ft_exit_program(t_all *ray);
 int		get_spawns(char **str);
 int		check_ext(char *str);
+void	ft_set_orientation(t_all *r, t_mlx_info *i);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 15:24:41 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 18:14:07 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 14:22:16 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		ft_init_raycasting_var(t_all *ray, int x, t_mlx_info *info)
 	ray->cam = 2 * x / (double)info->w - 1;
 	ray->ray_x = ray->dir_x + ray->plane_x * ray->cam;
 	ray->ray_y = ray->dir_y + ray->plane_y * ray->cam;
-	if (ray->player_x < 1 || ray->player_y < 1 || info->map[(int)ray->player_y][(int)ray->player_x] == 1)
+	if (ray->player_x < 1 || ray->player_y < 1
+		|| info->map[(int)ray->player_y][(int)ray->player_x] == 1)
 		return (0);
 	ray->map_x = (int)ray->player_x;
 	ray->map_y = (int)ray->player_y;
@@ -111,29 +112,27 @@ void	ft_print_textures(t_all *r, t_mlx_info *i, int x, double wall_x)
 {
 	int		t_x;
 	int		t_y;
-	double	step;
 	double	text_pos;
 	int		j;
 
 	j = -1;
 	t_x = (int)(wall_x * (double)i->t_w);
-	if (r->side == 0 && r->ray_x > 0)
-		t_x = i->t_w - t_x - 1;
-	if (r->side == 1 && r->ray_y < 0)
-		t_x = i->t_w - t_x - 1;
-	step = 1.0 * i->t_h / r->line_h;
-	text_pos = (r->d_s - i->h / 2 + r->line_h / 2) * step;
+	t_x = r->side == 0 && r->ray_x > 0 ? i->t_w - t_x - 1 : t_x;
+	t_x = r->side == 1 && r->ray_y < 0 ? i->t_w - t_x - 1 : t_x;
+	text_pos = (r->d_s - i->h / 2 + r->line_h / 2) * (1.0 * i->t_h / r->line_h);
 	while (++j < r->d_s)
-		i->int_img[j * i->w + x] = ((long)i->c_color[2] + i->c_color[1] * 16 * 16 + 16 * 16 * 16 * 16 * i->c_color[0]);
+		i->int_img[j * i->w + x] = ((long)i->c_color[2] + i->c_color[1] *
+		16 * 16 + 16 * 16 * 16 * 16 * i->c_color[0]);
 	while (r->d_s < r->d_e)
 	{
 		if ((int)text_pos > i->t_h - 1)
 			t_y = i->t_h - 1;
 		else
 			t_y = text_pos;
-		text_pos += step;
+		text_pos += (1.0 * i->t_h / r->line_h);
 		i->int_img[r->d_s++ * i->w + x] = i->text[r->pdv][i->t_h * t_y + t_x];
 	}
 	while (r->d_e < i->h)
-		i->int_img[r->d_e++ * i->w + x] = ((long)i->f_color[2] + i->f_color[1] * 16 * 16 + 16 * 16 * 16 * 16 * i->f_color[0]);
+		i->int_img[r->d_e++ * i->w + x] = ((long)i->f_color[2] + i->f_color[1] *
+		16 * 16 + 16 * 16 * 16 * 16 * i->f_color[0]);
 }
