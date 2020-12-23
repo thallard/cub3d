@@ -1,5 +1,13 @@
 SRCS =	cub3d.c \
-		srcs/ft_utils.c
+		srcs/ft_utils.c \
+		srcs/ft_free_all.c \
+		srcs/ft_movements.c \
+		srcs/ft_parser_main.c \
+		srcs/ft_parser_utils.c \
+		srcs/ft_raycasting_calcul.c \
+		srcs/ft_render_sprites.c \
+		srcs/ft_setters_struct.c \
+		srcs/ft_parser_map.c
 
 OBJBONUS = ${SRCBONUS:.c=.o}
 

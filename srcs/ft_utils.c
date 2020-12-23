@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 14:26:14 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 17:27:31 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 
 int		ft_exit_program(t_all *ray)
 {
+	int		i;
+
+	i = -1;
+	while (ray->infos->sprite->sprites[++i] != 0)
+		free(ray->infos->sprite->sprites[i]);
+	i = -1;
+	while (ray->infos->map[++i] != 0)
+		free(ray->infos->map[i]);
+	free(ray->infos->map);
 	mlx_destroy_image(ray->infos->mlx_ptr, ray->infos->img);
 	mlx_destroy_window(ray->infos->mlx_ptr, ray->infos->mlx_win);
 	exit(0);

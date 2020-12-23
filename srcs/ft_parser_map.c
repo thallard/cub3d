@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 16:00:55 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 17:33:08 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		ft_check_walls_map(t_mlx_info *i, int rows, char **str)
 				else if (!(ft_check_map_zero(i, str, k, j)))
 					return (0);
 			}
+	ft_free_str_map(str, rows);
 	return (1);
 }
 
@@ -96,6 +97,7 @@ int		ft_fill_map(t_mlx_info *i, char **s, int rows, int k)
 			}
 			else if (ft_isdigit(s[k][j]))
 				i->map[k][j] = s[k][j] - '0';
+	i->map[k] = 0;
 	if (!(ft_check_walls_map(i, rows, s)))
 		return (0);
 	return (1);
