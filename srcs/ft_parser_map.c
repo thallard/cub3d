@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 17:33:08 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 17:50:34 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int		ft_check_walls_map(t_mlx_info *i, int rows, char **str)
 int		ft_check_map_zero(t_mlx_info *i, char **s, int k, int j)
 {
 	(void)i;
+	if (s[j][k] == '4' && s[j + 1] != NULL && k > (int)ft_strlen(s[j + 1]))
+		return (0);
 	if (s[j - 1][k - 1] == '5' || s[j - 1][k] == '5' || s[j - 1][k + 1] == '5')
 		return (0);
 	else if (s[j][k + 1] == '5' || s[j][k - 1] == '5')

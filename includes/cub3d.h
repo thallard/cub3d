@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 17:33:21 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 17:40:50 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <math.h>
 
 # define SPEED 0.15
-# define ROTATE 0.08
+# define ROTATE 0.10
 
 typedef struct	s_sprite
 {
