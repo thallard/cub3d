@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 16:15:47 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 18:10:32 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct	s_mlx_info
 	int			c_color[3];
 	int			s_w;
 	int			s_h;
+	double		player_x;
+	double		player_y;
 	t_sprite	*sprite;
 }				t_mlx_info;
 
@@ -151,6 +153,7 @@ int		ft_check_map_zero(t_mlx_info *i, char **str, int k, int j);
 int		check_map(char *line, t_mlx_info *info, char **map, int map_row);
 int		ft_check_content_map(char *line, t_mlx_info *info, int paths);
 int		ft_fill_sprite(char *line, t_mlx_info *info);
+void	ft_set_player_spawn(t_mlx_info *info, int y, int x);
 
 /*
 * Utils part  
@@ -158,5 +161,6 @@ int		ft_fill_sprite(char *line, t_mlx_info *info);
 int		ft_exit_program(t_all *ray);
 int		get_spawns(char **str);
 int		check_ext(char *str);
+
 
 #endif

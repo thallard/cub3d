@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 15:24:41 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 11:51:51 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 18:14:07 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		ft_init_raycasting_var(t_all *ray, int x, t_mlx_info *info)
 	ray->cam = 2 * x / (double)info->w - 1;
 	ray->ray_x = ray->dir_x + ray->plane_x * ray->cam;
 	ray->ray_y = ray->dir_y + ray->plane_y * ray->cam;
+	if (ray->player_x < 1 || ray->player_y < 1 || info->map[(int)ray->player_y][(int)ray->player_x] == 1)
+		return (0);
 	ray->map_x = (int)ray->player_x;
 	ray->map_y = (int)ray->player_y;
 	save_x = (ray->ray_x == 0) ? 1 : fabs(1 / ray->ray_x);
@@ -74,7 +76,7 @@ void	ft_check_ray_hit_wall(t_all *ray, t_mlx_info *info)
 			ray->side = 1;
 			ray->pdv = ray->ray_y > 0 ? 2 : 3;
 		}
-		if (info->map[ray->map_x][ray->map_y] == 1)
+		if (info->map[ray->map_y][ray->map_x] == 1)
 			ray->hit = 1;
 	}
 }

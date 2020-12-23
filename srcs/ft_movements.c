@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:12:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 15:47:32 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 11:21:19 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ void	ft_move_forward(t_all *r)
 		ft_exit_program(r);
 	if (r->mov->key_w)
 	{
-		if (r->infos->map[(int)(r->player_x + r->dir_x * 0.13)]
-		[(int)r->player_y] == 0)
-			r->player_x += r->dir_x * 0.13;
-		if (r->infos->map[(int)r->player_x]
-		[(int)(r->player_y + r->dir_y * 0.13)] == 0)
+	if (r->infos->map[(int)(r->player_y + r->dir_y * 0.13)]
+		[(int)r->player_x] == 0)
 			r->player_y += r->dir_y * 0.13;
+		if (r->infos->map[(int)r->player_y]
+		[(int)(r->player_x + r->dir_x * 0.13)] == 0)
+			r->player_x += r->dir_x * 0.13;
 	}
 	if (r->mov->key_s)
 	{
-		if (r->infos->map[(int)(r->player_x - r->dir_x * 0.13)]
-		[(int)r->player_y] == 0)
-			r->player_x -= r->dir_x * 0.13;
-		if (r->infos->map[(int)r->player_x]
-		[(int)(r->player_y - r->dir_y * 0.13)] == 0)
+		if (r->infos->map[(int)(r->player_y - r->dir_y * 0.13)]
+		[(int)r->player_x] == 0)
 			r->player_y -= r->dir_y * 0.13;
+		if (r->infos->map[(int)r->player_y]
+		[(int)(r->player_x - r->dir_x * 0.13)] == 0)
+			r->player_x -= r->dir_x * 0.13;
 	}
 }
 
@@ -68,7 +68,7 @@ void	ft_move_right_and_left(t_all *r)
 	{
 		r->player_y -= r->dir_x * SPEED;
 		r->player_x += r->dir_y * SPEED;
-		if (r->infos->map[(int)r->player_x][(int)r->player_y] != 0)
+		if (r->infos->map[(int)r->player_y][(int)r->player_x] != 0)
 		{
 			r->player_y += r->dir_x * SPEED;
 			r->player_x -= r->dir_y * SPEED;
@@ -78,13 +78,12 @@ void	ft_move_right_and_left(t_all *r)
 	{
 		r->player_y += r->dir_x * SPEED;
 		r->player_x -= r->dir_y * SPEED;
-		if (r->infos->map[(int)r->player_x][(int)r->player_y] != 0)
+		if (r->infos->map[(int)r->player_y][(int)r->player_x] != 0)
 		{
 			r->player_y -= r->dir_x * SPEED;
 			r->player_x += r->dir_y * SPEED;
 		}
 	}
-	
 }
 
 int		key_press(int keycode, t_all *ray)

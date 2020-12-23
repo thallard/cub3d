@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:33:05 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/21 18:21:34 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/23 11:52:14 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_malloc_map(t_mlx_info *i, char **str)
 		if (!(i->map[l] = malloc(sizeof(int) * size + 10)))
 			return (0);
 	}
-	if (get_spawns(str) >= 2 || !(ft_fill_map(i, str, l, -1)))
+	if (!get_spawns(str) || !(ft_fill_map(i, str, l, -1)))
 		return ((i->error = -7) + 7);
 	return (1);
 }
@@ -55,7 +55,7 @@ int		ft_check_walls_map(t_mlx_info *i, int rows, char **str)
 			if (str[j][k] == '4')
 			{
 							dprintf(1, "%s %d %d\n", str[j], j, k);
-				if (k == (int)ft_strlen(str[j]) || k == 0 || j == rows || j == 0)
+				if (k == (int)(ft_strlen(str[j])- 1) || k == 0 || j == rows || j == 0)
 					return (0);
 				else if (!(ft_check_map_zero(i, str, k, j)))
 					return (0);
@@ -87,9 +87,8 @@ int		ft_fill_map(t_mlx_info *i, char **str, int rows, int k)
 {
 	int		j;
 	
-	while (str[++k])
+	while (str[++k] && (j = -1) == -1)
 	{
-		j = -1;
 		while (str[k][++j])
 			if (str[k][j] == ' ')
 			{
@@ -98,13 +97,27 @@ int		ft_fill_map(t_mlx_info *i, char **str, int rows, int k)
 			}
 			else if (str[k][j] == '0' || str[k][j] == '2' || ft_isalpha(str[k][j]))
 			{
-				i->map[k][j] = str[k][j] - '0';
+				if (ft_isalpha(str[k][j]))
+				{
+						ft_set_player_spawn(i, k, j);
+						i->map[k][j] = 0;
+				}
+				else
+					i->map[k][j] = str[k][j] - '0';
 				str[k][j] = '4';
 			}
 			else if (ft_isdigit(str[k][j]))
 				i->map[k][j] = str[k][j] - '0';
 	}
-	if (get_spawns(str) >= 2 || !(ft_check_walls_map(i, rows, str)))
+	if (!(ft_check_walls_map(i, rows, str)))
 		return (0);
 	return (1);
+}
+
+void	ft_set_player_spawn(t_mlx_info *info, int y, int x)
+{
+	
+	info->player_y = (double)y + 0.5;
+	info->player_x = (double)x + 0.5;
+	dprintf(1, "valeur de y = %f et valeur de x = %f\n",info->player_y, info->player_x);
 }

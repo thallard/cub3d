@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/22 16:10:47 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 17:18:30 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		ft_print_raycasting(t_all *ray, t_mlx_info *info, t_sprite *s)
 	while (++x < info->w)
 	{
 		if (!(ft_init_raycasting_var(ray, x, info)))
-			return (0);
+			return ((info->error = -3) + 3);
 		ft_calculate_step_sidedest(ray);
 		ft_check_ray_hit_wall(ray, info);
 		wall_x = ft_last_calcul_before_render(ray, info, x);
@@ -61,10 +61,11 @@ int		main(int argc, char **argv)
 	if (argc != 2 || !ft_check_map(argv[1], &i, 0, 0))
 		return (ft_print_errors(0, &i));
 	ft_init_flags_raycasting(&ray, &i, &mov);
-	ft_print_raycasting(&ray, &i, ray.infos->sprite);
+	if (!(ft_print_raycasting(&ray, &i, ray.infos->sprite)))
+		return (ft_print_errors(0, &i));
 	mlx_hook(i.mlx_win, 02, 1L<<0, key_press, &ray);
 	mlx_hook(i.mlx_win, 03, 1L<<1, key_release, &ray);
-	mlx_hook(i.mlx_win, 17, 1L<<0, ft_exit_program, &ray);
+	mlx_hook(i.mlx_win, 17, 1L<<1, ft_exit_program, &ray);
 	mlx_loop_hook(i.mlx_ptr, loop_game, &ray);
 	
 	mlx_loop(i.mlx_ptr);
