@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 13:10:57 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 15:10:49 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,18 @@ int		main(int argc, char **argv)
 	t_all		ray;
 	t_movements	mov;
 	t_sprite	sprite;
+	t_bmp		bmp;
 
 	ft_init_flags_movements(&mov);
 	ft_init_flags(&i, &sprite);
 	i.mlx_ptr = mlx_init();
 	if (argc != 2 || !ft_check_map(argv[1], &i, 0, 0))
 		return (ft_print_errors(0, &i));
-	ft_init_flags_raycasting(&ray, &i, &mov);
+	ft_init_flags_raycasting(&ray, &i, &mov, &bmp);
 	ft_set_orientation(&ray, &i);
 	if (!(ft_print_raycasting(&ray, &i, ray.infos->sprite)))
 		return (ft_print_errors(0, &i));
+	ft_init_bmp(&ray, &i);
 	mlx_hook(i.mlx_win, 02, 1L<<0, key_press, &ray);
 	mlx_hook(i.mlx_win, 03, 1L<<1, key_release, &ray);
 	mlx_hook(i.mlx_win, 17, 1L<<1, ft_exit_program, &ray);

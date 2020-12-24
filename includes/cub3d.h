@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 13:11:08 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 15:09:09 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@
 
 # define SPEED 0.15
 # define ROTATE 0.10
+
+typedef struct	s_bmp
+{
+	unsigned char		header[54];
+	int			fd;
+	int			w;
+	int			height;
+	int			bytes_number;
+	int			width_bytes;
+	int			image_s;
+	int			bytes_s;
+	unsigned int			file_s;
+	int			header_s;
+	int			biplanes;
+}				t_bmp;
 
 typedef struct	s_sprite
 {
@@ -68,6 +83,7 @@ typedef struct	s_mlx_info
 	double		player_y;
 	char		orientation;
 	t_sprite	*sprite;
+	t_bmp		*bmp;
 }				t_mlx_info;
 
 typedef struct	s_movements
@@ -80,7 +96,6 @@ typedef struct	s_movements
 	int			key_ar;
 	int			key_escape;
 }				t_movements;
-
 
 
 typedef struct	s_all
@@ -111,16 +126,19 @@ typedef struct	s_all
 	int			pdv;
 	t_movements	*mov;
 	t_mlx_info	*infos;
+	t_bmp		*bmp;
 }				t_all;
 
+/*
+** Setters
+*/
 void	ft_init_flags(t_mlx_info *info, t_sprite *sprites);
-void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info, t_movements *mov);
+void	ft_init_flags_raycasting(t_all *ray, t_mlx_info *info,
+t_movements *mov, t_bmp *bmp);
 void	ft_init_flags_movements(t_movements *mov);
-int		ft_get_orientation(char *line);
-int		ft_print_errors(int error, t_mlx_info *i);
 
 /*
-* Rendering part (raycasting)
+** Rendering part (raycasting)
 */
 int		ft_print_raycasting(t_all *ray, t_mlx_info *info, t_sprite *s);
 int		ft_init_raycasting_var(t_all *ray, int x, t_mlx_info *info);
@@ -133,7 +151,7 @@ void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int x);
 void	ft_sort_distance_sprites(t_sprite *s, t_all *r);
 
 /*
-* Movements part (player)
+** Movements part (player)
 */
 void	ft_move_forward(t_all *r);
 void	ft_rotate_player(t_all *r);
@@ -161,15 +179,24 @@ int		ft_fill_sprite(char *line, t_mlx_info *info);
 void	ft_set_player_spawn(t_mlx_info *info, int y, int x, char c);
 void	ft_fill_sprites_map(t_mlx_info *i, char **str);
 void	ft_checker_resolution(t_mlx_info *info);
+int		ft_get_orientation(char *line);
 
 /*
-* Utils part  
+** Screenshot part
+*/
+void	ft_start_init_bmp(t_all *a, t_mlx_info *i);
+void	ft_init_bmp(t_all *a, t_mlx_info *i);
+void	ft_fill_bmp_header(t_all *a);
+void	ft_write_screenshot_in_bmp(t_all *a);
+
+/*
+** Utils part
 */
 int		ft_exit_program(t_all *ray);
 int		get_spawns(char **str);
 int		check_ext(char *str);
 void	ft_set_orientation(t_all *r, t_mlx_info *i);
 void	ft_free_str_map(char **str, int rows);
-
-
+int		ft_print_errors(int error, t_mlx_info *i);
+void			ft_bzero(void *pointer, int size);
 #endif
