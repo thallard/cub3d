@@ -1,17 +1,11 @@
-# Product Name
-> Short blurb about what your product does.
+# cub3D
+> Sixth project of 42cursus (2019-2020), this is the first graphic project based on the game [Wolfenstein](http://users.atw.hu/wolf3d/) using Raycasting.
 
-[![C Version][c-image]][c-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
-One to two paragraph statement about your product and what it does.
+[![HitCount](http://hits.dwyl.com/thallard/cub3d.svg)](http://hits.dwyl.com/thallard/cub3d)
 
 ![](header.png)
 
-## Installation
-
-OS X :
+## Installation (only working on macOS)
 
 ```sh
 git clone https://github.com/thallard/cub3d
@@ -19,11 +13,6 @@ git clone https://github.com/thallard/cub3d
 
 ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-```sh
-make all
-```
 To run the project you have to :
 ```sh
 ./cub3d map.cub
@@ -35,4 +24,8 @@ If you want to have a screenshot of the first frame, use this suffix :
 ## Sources & Contact
 
 Thomas HALLARD-CLOT – thallard@student.42lyon.fr
+
 [https://github.com/thallard](https://github.com/thallard)
+
+You can find me at :
+[https://profile.intra.42.fr/users/thallard](https://profile.intra.42.fr/users/thallard)
