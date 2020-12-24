@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 14:59:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 16:41:25 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 13:11:35 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int n)
 		t_x = ((int)256 * (x - (-s->s_width / 2 + s->s_spr_x))
 		* i->s_w / s->s_width) / 256;
 		y = s->s_dsy - 1;
-		if (s->t_y > 0 && x > 0 && x < i->w && s->t_y < i->sprite->z_buf[x])
+		if (s->t_y > 0 && x > 0 && x < i->w && s->t_y < s->z_buf[x])
 			while (++y < s->s_dey)
 			{
 				d = (y) * 256 - i->h * 128 + s->s_h * 128;
@@ -72,7 +72,6 @@ void	ft_fill_sprites_map(t_mlx_info *i, char **str)
 	int		nb;
 	int		*pos;
 
-	
 	nb = 0;
 	k = -1;
 	j = -1;
@@ -82,7 +81,7 @@ void	ft_fill_sprites_map(t_mlx_info *i, char **str)
 		while (str[k][++j])
 			if (str[k][j] == '2')
 			{
-				pos = malloc(sizeof(int) * 2);
+				pos = malloc(sizeof(int) * 3);
 				pos[0] = k;
 				pos[1] = j;
 				i->sprite->sprites[nb++] = pos;
@@ -103,4 +102,29 @@ void	ft_checker_resolution(t_mlx_info *info)
 		info->w = 2560;
 	if (info->h > 1440)
 		info->h = 1440;
+}
+
+void	ft_sort_distance_sprites(t_sprite *s, t_all *r)
+{
+	int		j;
+	int		k;
+	int		*temp;
+
+	j = -1;
+	while (s->sprites[++j] != 0)
+		s->sprites[j][2] = ((r->player_x - s->sprites[j][1]) * (r->player_x -
+		s->sprites[j][1]) + (r->player_y - s->sprites[j][0]) * (r->player_y -
+		s->sprites[j][0]));
+	k = j;
+	j = 0;
+	while (j <= (k - 2))
+	{
+		if (s->sprites[j + 1][2] > s->sprites[j][2])
+		{
+			temp = s->sprites[j];
+			s->sprites[j] = s->sprites[j + 1];
+			s->sprites[j + 1] = temp;
+		}
+		j++;
+	}
 }

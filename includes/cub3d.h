@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 17:40:50 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 13:11:08 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_sprite
 	int			s_width;
 	double		z_buf[3660];
 	int			*sprites[100];
+	int			*sorted_sprites[100];
 	int			s_path;
 }				t_sprite;
 
@@ -129,6 +130,7 @@ double	ft_last_calcul_before_render(t_all *ray, t_mlx_info *info, int x);
 void	ft_print_textures(t_all *ray, t_mlx_info *i, int x, double wall_x);
 void	ft_calcul_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int n);
 void	ft_print_sprites(t_all *ray, t_mlx_info *i, t_sprite *s, int x);
+void	ft_sort_distance_sprites(t_sprite *s, t_all *r);
 
 /*
 * Movements part (player)

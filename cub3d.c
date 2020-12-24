@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:52:04 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 15:57:34 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 13:10:57 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		ft_print_raycasting(t_all *ray, t_mlx_info *info, t_sprite *s)
 		ft_print_textures(ray, info, x, wall_x);
 	}
 	x = -1;
+	ft_sort_distance_sprites(s, ray);
 	while (s->sprites[++x] != 0)
 	{	
 		ft_calcul_sprites(ray, info, s, x);
