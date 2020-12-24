@@ -1,3 +1,3 @@
 # cub3d
 
-**How to use it :***
+**How to use it :**
