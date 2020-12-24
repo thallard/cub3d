@@ -6,11 +6,11 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 17:27:31 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 16:21:16 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mlx.h"
+#include "../minilibx/mlx.h"
 #include "../includes/libft.h"
 #include "../includes/cub3d.h"
 

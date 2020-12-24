@@ -6,19 +6,19 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 16:58:48 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 16:20:59 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include "../includes/libft.h"
-#include "../includes/mlx.h"
+#include "../minilibx/mlx.h"
 
 int		ft_check_map(char *map_name, t_mlx_info *info, int m, int paths)
 {
-	int fd;
-	char *line;
-	char *map[4096];
+	int		fd;
+	char	*line;
+	char	*map[4096];
 
 	if (check_ext(map_name) || (fd = open(map_name, O_RDONLY)) < 0)
 		return ((info->error = -1) + 1);
@@ -43,10 +43,10 @@ int		ft_check_map(char *map_name, t_mlx_info *info, int m, int paths)
 
 int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 {
-	char str[400];
-	int j;
-	int tmp;
-	void *xpm_image;
+	char	str[400];
+	int		j;
+	int		tmp;
+	void	*xpm_image;
 
 	j = 2;
 	tmp = -1;
@@ -55,7 +55,6 @@ int		ft_fill_path_texture(char *line, t_mlx_info *i, int nb_paths)
 	while (line[j])
 		str[++tmp] = line[j++];
 	str[++tmp] = '\0';
-	dprintf(1, "%s\n", str);
 	i->img = mlx_new_image(i->mlx_ptr, i->w, i->h);
 	i->int_img = (int *)mlx_get_data_addr(i->img, &j, &j, &j);
 	xpm_image = mlx_xpm_file_to_image(i->mlx_ptr, str, &i->t_w, &i->t_h);
@@ -101,7 +100,7 @@ int		ft_fill_sprite(char *line, t_mlx_info *i)
 	char	tmp[400];
 	int		j;
 	void	*sprite;
-	
+
 	j = -1;
 	l = 1;
 	while (line[++l] == ' ')

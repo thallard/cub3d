@@ -6,11 +6,11 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 14:59:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 13:11:35 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 16:21:11 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mlx.h"
+#include "../minilibx/mlx.h"
 #include "../includes/libft.h"
 #include "../includes/cub3d.h"
 
@@ -98,10 +98,7 @@ void	ft_checker_resolution(t_mlx_info *info)
 	if (info->w % 320 != 0)
 		while (info->w % 320 != 0)
 			info->w++;
-	if (info->w > 2560)
-		info->w = 2560;
-	if (info->h > 1440)
-		info->h = 1440;
+	mlx_get_screen_size(info->mlx_ptr, &info->w, &info->h);
 }
 
 void	ft_sort_distance_sprites(t_sprite *s, t_all *r)

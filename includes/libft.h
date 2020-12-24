@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:49:09 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/14 14:26:42 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 15:32:40 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,10 @@ void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 
-
 int				get_next_line(int fd, char **line);
 char			*ft_strjoin_gnl(char *s1, char *s2, int f);
 char			*ft_get_after_eol(char *save);
 char			*ft_create_line(char *s);
-
 
 int				ft_start_print(const char *str, va_list a, t_flags *f, int *c);
 int				ft_detect_flags(const char *str, va_list a, t_flags *f, int c);

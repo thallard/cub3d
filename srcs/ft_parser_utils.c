@@ -6,11 +6,11 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 18:48:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 16:58:25 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 16:22:29 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mlx.h"
+#include "../minilibx/mlx.h"
 #include "../includes/libft.h"
 #include "../includes/cub3d.h"
 
@@ -25,7 +25,7 @@ int		ft_check_content_map(char *line, t_mlx_info *info, int paths)
 	if (line[0] == 'S' && line[1] == ' ')
 		if (!(ft_fill_sprite(line, info)))
 			return (0);
-	if (line[0] == 'R' && line[0] != '\0')
+	if (line[0] == 'R' && line[0] != ' ')
 		if (!ft_fill_resolution(line, info))
 			return (0);
 	if (line[0] != 'R' && ft_isalpha(line[0]) && paths != -1)
@@ -35,7 +35,7 @@ int		ft_check_content_map(char *line, t_mlx_info *info, int paths)
 }
 
 int		check_map(char *line, t_mlx_info *info, char **map, int map_row)
-{	
+{
 	if (!(ft_map_contains(line, info)))
 		return (0);
 	map[map_row++ - 1] = ft_strdup(line);
@@ -56,11 +56,7 @@ int		ft_map_contains(char *line, t_mlx_info *info)
 		if (line[i] != '1' && line[i] != '0' && line[i] != '2' && line[i] != '3'
 						&& line[i] != 'N' && line[i] != 'E' && line[i] != 'O'
 						&& line[i] != 'S' && line[i] != ' ')
-						{
-							dprintf(1, "%c\n", line[i]);
-						return ((info->error = -7) + 7);
-						}
-		
+			return ((info->error = -7) + 7);
 	return (1);
 }
 

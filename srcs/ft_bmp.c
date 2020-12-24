@@ -6,13 +6,13 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:05:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 15:14:24 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 16:20:37 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include "../includes/libft.h"
-#include "../includes/mlx.h"
+#include "../minilibx/mlx.h"
 
 void	ft_bzero(void *pointer, int size)
 {
@@ -25,8 +25,13 @@ void	ft_bzero(void *pointer, int size)
 		((char *)pointer)[i] = '\0';
 }
 
-void	ft_init_bmp(t_all *a, t_mlx_info *i)
+void	ft_init_bmp(t_all *a, t_mlx_info *i, char **argv)
 {
+	if (ft_strncmp(argv[2], "--save", 7) != 0)
+	{
+		ft_printf("Error\n-12 : Wrong arguments.\n");
+		ft_exit_program(a);
+	}
 	if (!(a->bmp = malloc(sizeof(t_bmp))))
 		ft_exit_program(a);
 	ft_bzero(a->bmp->header, 54);
@@ -61,4 +66,5 @@ void	ft_fill_bmp_header(t_all *a)
 	while (i != 0)
 		write(a->bmp->fd, a->infos->int_img + (i-- * a->bmp->w), a->bmp->w * 4);
 	close(a->bmp->fd);
+	ft_printf("*Click !* Your screenshot is ready !");
 }

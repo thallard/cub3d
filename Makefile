@@ -7,7 +7,8 @@ SRCS =	cub3d.c \
 		srcs/ft_raycasting_calcul.c \
 		srcs/ft_render_sprites.c \
 		srcs/ft_setters_struct.c \
-		srcs/ft_parser_map.c
+		srcs/ft_parser_map.c \
+		srcs/ft_bmp.c
 
 OBJBONUS = ${SRCBONUS:.c=.o}
 
@@ -23,24 +24,26 @@ MINILIBX = libmlx.dylib
 
 RM = rm -f
 
-FLAGS = -Wall -Wextra -Werror -L. -lmlx -lft
+FLAGS = -Wall -Wextra -Werror -L./includes -lmlx -lft
+
+
 
 %.o: %.c	${HEADER}
 			${CC} -c  $< -o ${<:.c=.o} 
 
+$(MINILIBX):
+		@make -C minilibx/
+		@cp minilibx/$(MINILIBX) ./includes
+
 $(NAME):	${OBJS}
 			${CC} $(FLAGS) -o ${NAME} ${OBJS} 
 
-$(MINILIBX):
-		@make -c minilibx/
-		@cp minilibx/$(MINILIBX)
+all:		$(MINILIBX) $(NAME)
 
-all:		${NAME}
+bonus:		$(MINILIBX) ${NAME}
 
-bonus:
-			${NAME}
 clean:
-			${RM} ${OBJS} 
+			${RM} ${OBJS} ./includes/libmlx.dylib
 
 fclean:		clean
 			${RM} ${NAME}

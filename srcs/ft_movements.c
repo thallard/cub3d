@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:12:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/23 11:21:19 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 15:32:26 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	ft_move_forward(t_all *r)
 		ft_exit_program(r);
 	if (r->mov->key_w)
 	{
-	if (r->infos->map[(int)(r->player_y + r->dir_y * 0.13)]
-		[(int)r->player_x] == 0)
+		if (r->infos->map[(int)(r->player_y + r->dir_y * 0.13)]
+			[(int)r->player_x] == 0)
 			r->player_y += r->dir_y * 0.13;
 		if (r->infos->map[(int)r->player_y]
-		[(int)(r->player_x + r->dir_x * 0.13)] == 0)
+			[(int)(r->player_x + r->dir_x * 0.13)] == 0)
 			r->player_x += r->dir_x * 0.13;
 	}
 	if (r->mov->key_s)
@@ -39,12 +39,12 @@ void	ft_move_forward(t_all *r)
 void	ft_rotate_player(t_all *r)
 {
 	double		s_x;
-	
+
 	if (r->mov->key_al)
 	{
 		s_x = r->dir_x;
 		r->dir_x = r->dir_x * cos(-ROTATE) - r->dir_y * sin(-ROTATE);
-					r->dir_y = s_x * sin(-ROTATE) + r->dir_y * cos(-ROTATE);
+		r->dir_y = s_x * sin(-ROTATE) + r->dir_y * cos(-ROTATE);
 		s_x = r->plane_x;
 		r->plane_x = r->plane_x * cos(-ROTATE) -
 					r->plane_y * sin(-ROTATE);
@@ -54,9 +54,9 @@ void	ft_rotate_player(t_all *r)
 	{
 		s_x = r->dir_x;
 		r->dir_x = r->dir_x * cos(ROTATE) - r->dir_y * sin(ROTATE);
-					r->dir_y = s_x * sin(ROTATE) + r->dir_y * cos(ROTATE);
+		r->dir_y = s_x * sin(ROTATE) + r->dir_y * cos(ROTATE);
 		s_x = r->plane_x;
-		r->plane_x = r->plane_x * cos(ROTATE) - 
+		r->plane_x = r->plane_x * cos(ROTATE) -
 					r->plane_y * sin(ROTATE);
 		r->plane_y = s_x * sin(ROTATE) + r->plane_y * cos(ROTATE);
 	}
