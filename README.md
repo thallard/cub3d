@@ -3,8 +3,6 @@
 
 [![HitCount](http://hits.dwyl.com/thallard/cub3d.svg)](http://hits.dwyl.com/thallard/cub3d)
 
-![](header.png)
-
 ## Installation (only working on macOS)
 
 ```sh
@@ -24,8 +22,6 @@ If you want to have a screenshot of the first frame, use this suffix :
 ## Sources & Contact
 
 Thomas HALLARD-CLOT – thallard@student.42lyon.fr
-
-[https://github.com/thallard](https://github.com/thallard)
 
 You can find me at :
 [https://profile.intra.42.fr/users/thallard](https://profile.intra.42.fr/users/thallard)
