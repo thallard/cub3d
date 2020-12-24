@@ -11,7 +11,7 @@ git clone https://github.com/thallard/cub3d
 
 To run the project you have to :
 ```sh
-./cub3d map.cub
+make all && ./cub3d map.cub
 ```
 If you want to have a screenshot of the first frame, use this flag :
 ```sh
