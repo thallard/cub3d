@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:05:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 16:20:37 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 16:52:58 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	ft_bzero(void *pointer, int size)
 		((char *)pointer)[i] = '\0';
 }
 
-void	ft_init_bmp(t_all *a, t_mlx_info *i, char **argv)
+void	ft_init_bmp(t_all *a, t_mlx_info *i, char **argv, int argc)
 {
+	(void)argc;
 	if (ft_strncmp(argv[2], "--save", 7) != 0)
 	{
 		ft_printf("Error\n-12 : Wrong arguments.\n");

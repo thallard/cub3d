@@ -1,4 +1,4 @@
-SRCS =	cub3d.c \
+SRCS =	main.c \
 		srcs/ft_utils.c \
 		srcs/ft_free_all.c \
 		srcs/ft_movements.c \
@@ -24,8 +24,7 @@ MINILIBX = libmlx.dylib
 
 RM = rm -f
 
-FLAGS = -Wall -Wextra -Werror -L./includes -lmlx -lft
-
+FLAGS = -Wall -Wextra -Werror -L. -lmlx -lft
 
 
 %.o: %.c	${HEADER}
@@ -33,7 +32,7 @@ FLAGS = -Wall -Wextra -Werror -L./includes -lmlx -lft
 
 $(MINILIBX):
 		@make -C minilibx/
-		@cp minilibx/$(MINILIBX) ./includes
+		@cp minilibx/$(MINILIBX) .
 
 $(NAME):	${OBJS}
 			${CC} $(FLAGS) -o ${NAME} ${OBJS} 
@@ -43,7 +42,7 @@ all:		$(MINILIBX) $(NAME)
 bonus:		$(MINILIBX) ${NAME}
 
 clean:
-			${RM} ${OBJS} ./includes/libmlx.dylib
+			${RM} ${OBJS} libmlx.dylib
 
 fclean:		clean
 			${RM} ${NAME}

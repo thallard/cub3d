@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 16:22:04 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 16:52:01 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int				ft_get_orientation(char *line);
 ** Screenshot part
 */
 void			ft_start_init_bmp(t_all *a, t_mlx_info *i);
-void			ft_init_bmp(t_all *a, t_mlx_info *i, char **argv);
+void			ft_init_bmp(t_all *a, t_mlx_info *i, char **argv, int argc);
 void			ft_fill_bmp_header(t_all *a);
 void			ft_write_screenshot_in_bmp(t_all *a);
 
