@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 16:20:59 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 17:02:07 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		ft_check_map(char *map_name, t_mlx_info *info, int m, int paths)
 		return ((info->error = -1) + 1);
 	while (get_next_line(fd, &line) == 1)
 	{
+		if (!ft_check_character_map(line, info))
+			return (0);
 		if ((paths = ft_get_orientation(line)) == 3)
 			m = 1;
 		if (!(ft_check_content_map(line, info, paths)))

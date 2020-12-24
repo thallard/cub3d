@@ -26,7 +26,6 @@ RM = rm -f
 
 FLAGS = -Wall -Wextra -Werror -L. -lmlx -lft
 
-
 %.o: %.c	${HEADER}
 			${CC} -c  $< -o ${<:.c=.o} 
 

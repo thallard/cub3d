@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 14:59:25 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 16:21:11 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 17:09:50 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,21 @@ void	ft_fill_sprites_map(t_mlx_info *i, char **str)
 
 void	ft_checker_resolution(t_mlx_info *info)
 {
+	int		w;
+	int		h;
+
 	if (info->h % 320 != 0)
 		while (info->h % 320 != 0)
 			info->h++;
 	if (info->w % 320 != 0)
 		while (info->w % 320 != 0)
 			info->w++;
-	mlx_get_screen_size(info->mlx_ptr, &info->w, &info->h);
+	mlx_get_screen_size(info->mlx_ptr, &w, &h);
+	if (info->w > w || info->h > h)
+	{
+		info->w = w;
+		info->h = h;
+	}
 }
 
 void	ft_sort_distance_sprites(t_sprite *s, t_all *r)

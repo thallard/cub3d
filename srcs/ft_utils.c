@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 16:51:54 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/24 17:12:01 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int		ft_print_errors(int error, t_mlx_info *i)
 		return (ft_printf("Error\n%d : Invalid floor/ceiling.\n", i->error));
 	if (i->error == -9)
 		return (ft_printf("Error\n%d : Invalid path sprite.\n", i->error));
+	if (i->error == -10)
+		return (ft_printf("Error\n%d : Wrong character in file.\n", i->error));
 	if (error == 1)
 		ft_printf("Error\n1 : Wrong numbers of parameters.c\n");
 	return (0);
