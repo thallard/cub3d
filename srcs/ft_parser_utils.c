@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 18:48:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 16:22:29 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/25 12:10:43 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_map_contains(char *line, t_mlx_info *info)
 	i = -1;
 	while (line[++i])
 		if (line[i] != '1' && line[i] != '0' && line[i] != '2' && line[i] != '3'
-						&& line[i] != 'N' && line[i] != 'E' && line[i] != 'O'
+						&& line[i] != 'N' && line[i] != 'E' && line[i] != 'W'
 						&& line[i] != 'S' && line[i] != ' ')
 			return ((info->error = -7) + 7);
 	return (1);

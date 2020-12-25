@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 13:37:12 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 17:02:07 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/25 12:18:50 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_check_map(char *map_name, t_mlx_info *info, int m, int paths)
 		}
 		free(line);
 	}
-	if (!(check_map(line, info, map, m)))
+	if (!ft_check_empty(line, info) || !(check_map(line, info, map, m)))
 		return (0);
 	return (1);
 }
@@ -91,7 +91,6 @@ int		ft_fill_resolution(char *line, t_mlx_info *info)
 	if (info->h <= 0 || info->w <= 0)
 		return ((info->error = -5) + 5);
 	ft_checker_resolution(info);
-	dprintf(1, "debug : %d %d\n", info->w, info->h);
 	info->mlx_win = mlx_new_window(info->mlx_ptr, info->w, info->h, "cub3D");
 	return (1);
 }
@@ -110,7 +109,6 @@ int		ft_fill_sprite(char *line, t_mlx_info *i)
 	while (line[l])
 		tmp[++j] = line[l++];
 	tmp[++j] = '\0';
-	dprintf(1, "debug sprite %s\n", tmp);
 	sprite = mlx_xpm_file_to_image(i->mlx_ptr, tmp, &i->s_w, &i->s_h);
 	if (!sprite || i->sprite->s_path == 1)
 		return ((i->error = -9) + 9);

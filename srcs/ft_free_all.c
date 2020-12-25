@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 17:29:47 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 17:10:53 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/25 12:25:59 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,16 @@ int		ft_check_character_map(char *line, t_mlx_info *i)
 		i->error = -10;
 		return (0);
 	}
+	return (1);
+}
+
+int		ft_check_empty(char *line, t_mlx_info *i)
+{
+	if (i->w == 0 || i->h == 0 || i->sprite->int_spr == NULL ||
+		i->text[0] == NULL || i->text[1] == NULL ||
+		i->text[2] == NULL || i->text[3] == NULL ||
+		(i->c_color[0] == -1 || i->c_color[1] == -1 || i->c_color[2] == -1)
+		|| (i->f_color[0] == -1 || i->f_color[1] == -1 || i->f_color[2] == -1))
+		return ((i->error = -11) + 11);
 	return (1);
 }

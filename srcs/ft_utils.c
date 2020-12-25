@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:21:36 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 17:12:01 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/25 12:15:14 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int		ft_print_errors(int error, t_mlx_info *i)
 		return (ft_printf("Error\n%d : Invalid path sprite.\n", i->error));
 	if (i->error == -10)
 		return (ft_printf("Error\n%d : Wrong character in file.\n", i->error));
+	if (i->error == -11)
+		return (ft_printf("Error\n%d : One field is empty.\n", i->error));
 	if (error == 1)
 		ft_printf("Error\n1 : Wrong numbers of parameters.c\n");
 	return (0);
@@ -95,7 +97,7 @@ void	ft_set_orientation(t_all *r, t_mlx_info *i)
 		var = -3.14 / 2;
 	else if (i->orientation == 'S')
 		var = 3.14 / 2;
-	else if (i->orientation == 'O')
+	else if (i->orientation == 'W')
 		var = 3.14;
 	else
 		return ;

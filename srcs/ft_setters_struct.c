@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:16:21 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 14:19:04 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/25 12:23:17 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	ft_init_flags(t_mlx_info *info, t_sprite *sprites)
 	info->text[1] = NULL;
 	info->text[2] = NULL;
 	info->text[3] = NULL;
-	info->c_color[0] = 0;
-	info->c_color[1] = 0;
-	info->c_color[2] = 0;
-	info->f_color[0] = 0;
-	info->f_color[1] = 0;
-	info->f_color[2] = 0;
+	info->c_color[0] = -1;
+	info->c_color[1] = -1;
+	info->c_color[2] = -1;
+	info->f_color[0] = -1;
+	info->f_color[1] = -1;
+	info->f_color[2] = -1;
 	info->sprite = sprites;
 	info->sprite->s_path = 0;
 	info->orientation = 0;

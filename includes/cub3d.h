@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 16:41:55 by thallard          #+#    #+#             */
-/*   Updated: 2020/12/24 17:01:22 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2020/12/25 12:18:05 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void			ft_fill_sprites_map(t_mlx_info *i, char **str);
 void			ft_checker_resolution(t_mlx_info *info);
 int				ft_get_orientation(char *line);
 int				ft_check_character_map(char *line, t_mlx_info *i);
+int				ft_check_empty(char *line, t_mlx_info *info);
 
 /*
 ** Screenshot part
