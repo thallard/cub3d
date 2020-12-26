@@ -17,6 +17,8 @@ If you want to have a screenshot of the first frame, use this flag :
 ```sh
 ./cub3d map.cub --save
 ```
+
+![Screenshot](example.png)
 ## Sources & Contact
 
 Thomas HALLARD-CLOT – thallard@student.42lyon.fr
