@@ -1,6 +1,8 @@
 # cub3D
 > Sixth project of 42cursus (2019-2020), this is the first graphic project based on the game [Wolfenstein](http://users.atw.hu/wolf3d/) using Minilibx.
 
+![Screenshot](mark.png)
+
 ## Installation (only working on macOS)
 
 ```sh
